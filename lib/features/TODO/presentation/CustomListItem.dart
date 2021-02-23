@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:TODO/features/TODO/presentation/Homepage.dart';
-
+import 'package:TODO/features/TODO/presentation/homeView.dart';
 
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
@@ -28,11 +27,7 @@ class CustomListItem extends StatelessWidget {
           ),
           Expanded(
             flex: 3,
-            child: HomePage(
-              title: title,
-              user: user,
-              viewCount: viewCount,
-            ),
+            child: HomePage(),
           ),
           const Icon(
             Icons.more_vert,
