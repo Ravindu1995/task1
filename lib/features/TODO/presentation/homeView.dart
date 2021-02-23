@@ -1,6 +1,7 @@
 import 'package:TODO/features/TODO/presentation/constatnts.dart';
 import 'package:TODO/features/login/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Profile.dart';
 
@@ -121,10 +122,11 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => Profile()),
       );
     } else if (choice == Constants.SignOut) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => LoginPage()),
+      // );
+      Get.to(LoginPage());
     }
   }
 }
