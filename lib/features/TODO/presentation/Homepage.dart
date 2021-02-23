@@ -50,8 +50,24 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Today"),
+            Text("Today", style: TextStyle(fontSize: 30),),
+
             ListTile(
+                leading: GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {},
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    padding: EdgeInsets.symmetric(vertical: 4.0),
+                    alignment: Alignment.center,
+                    child: CircleAvatar(),
+                  ),
+                ),
+                title: Text('title'),
+                dense: false,
+              ),
+            /*ListTile(
               leading: CircularCheckBox(
                   value: this.selected,
                   checkColor: Colors.white,
@@ -65,7 +81,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () => this.setState(() {
                 this.selected = !this.selected;
               }),
-            ),
+            ),*/
           ],
         ),
       ),
