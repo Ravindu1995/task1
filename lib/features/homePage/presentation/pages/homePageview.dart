@@ -3,6 +3,7 @@ import 'package:TODO/features/TODO/presentation/Profile.dart';
 import 'package:TODO/features/homePage/presentation/widgets/homePageFormWidget.dart';
 import 'package:TODO/features/login/presentation/pages/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -65,21 +66,20 @@ class _HomePageState extends State<HomePage> {
       // bottomNavigationBar:
     );
   }
-  
 }
 
 void choiceAction(String choice) {
-    if (choice == Constants.Settings) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile()),
-      );
-    } else if (choice == Constants.SignOut) {
-      // Navigator.push(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => LoginPage()),
-      // );
-      Get.to(LoginPage());
-    }
+  if (choice == Constants.Settings) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => Profile()),
+    // );
+    Get.to(Profile());
+  } else if (choice == Constants.SignOut) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => LoginPage()),
+    // );
+    Get.to(LoginPage());
   }
 }
