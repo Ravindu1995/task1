@@ -69,10 +69,11 @@ class _HomePageState extends State<HomePage> {
 
   void choiceAction(String choice) {
     if (choice == Constants.Settings) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Profile()),
-      );
+      //Navigator.push(
+      //context,
+      //MaterialPageRoute(builder: (context) => Profile()),
+      //);
+      Get.to(Profile());
     } else if (choice == Constants.SignOut) {
       // Navigator.push(
       //   context,

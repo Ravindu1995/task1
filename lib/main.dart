@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+enum SingingCharacter { lafayette, jefferson }
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 

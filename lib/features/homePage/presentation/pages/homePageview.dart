@@ -1,18 +1,16 @@
-import 'package:TODO/features/TODO/presentation/Constatnts.dart';
-import 'package:TODO/features/TODO/presentation/Profile.dart';
+//import 'package:TODO/features/TODO/presentation/Constatnts.dart';
+//import 'package:TODO/features/TODO/presentation/Profile.dart';
 import 'package:TODO/features/homePage/presentation/widgets/homePageFormWidget.dart';
 import 'package:TODO/features/login/presentation/pages/login.dart';
+import 'package:TODO/features/profile/presentation/pages/Constatnts.dart';
+import 'package:TODO/features/profile/presentation/pages/profileView.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class HomePage extends StatelessWidget {
+  
   bool selected = true;
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +58,13 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      
+      
       body: SingleChildScrollView(
         child: HomePageFormWidget(),
       ),
+
+
       // bottomNavigationBar:
     );
   }
