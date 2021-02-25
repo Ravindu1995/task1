@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   
-  bool selected = true;
+ bool selected = true;
   
   @override
   Widget build(BuildContext context) {
