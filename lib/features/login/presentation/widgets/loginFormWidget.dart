@@ -1,8 +1,12 @@
+import 'package:TODO/features/controllers/authController.dart';
 import 'package:TODO/features/signUp/presentation/pages/signUpView.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class LoginFormWidget extends StatelessWidget {
+class LoginFormWidget extends GetWidget<AuthController> {
+  
   const LoginFormWidget({
+    
     Key key,
   }) : super(key: key);
 
@@ -13,7 +17,7 @@ class LoginFormWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          TextField(
+          TextFormField(
             decoration: InputDecoration(
               fillColor: Colors.white,
               border: OutlineInputBorder(
@@ -29,7 +33,7 @@ class LoginFormWidget extends StatelessWidget {
             width: 20.0,
             height: 30.0,
           ),
-          TextField(
+          TextFormField(
             obscureText: true,
             decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -50,7 +54,12 @@ class LoginFormWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.blue)),
-            onPressed: () {},
+            onPressed: () {
+              controller.login(
+                      emailController.text, passwordController.text);
+                },
+              
+            
             color: Colors.blue,
             textColor: Colors.white,
             child: Text("Enter", style: TextStyle(fontSize: 14)),
