@@ -1,12 +1,11 @@
-import 'package:TODO/features/controllers/authController.dart';
+
 import 'package:TODO/features/login/presentation/widgets/loginFormWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class LoginPage extends GetWidget<AuthController> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
 
+class LoginPage extends StatelessWidget {
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,

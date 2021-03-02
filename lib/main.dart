@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:TODO/features/login/presentation/pages/login.dart';
 import 'package:get/get.dart';
 
-import 'features/controllers/authBinding.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialBinding: AuthBinding(),
+      
       home: LoginPage(),
     );
   }

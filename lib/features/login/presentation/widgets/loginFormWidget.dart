@@ -1,9 +1,9 @@
-import 'package:TODO/features/controllers/authController.dart';
+
 import 'package:TODO/features/signUp/presentation/pages/signUpView.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class LoginFormWidget extends GetWidget<AuthController> {
+
+class LoginFormWidget extends StatelessWidget {
   
   const LoginFormWidget({
     
@@ -54,12 +54,8 @@ class LoginFormWidget extends GetWidget<AuthController> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.blue)),
-            onPressed: () {
-              controller.login(
-                      emailController.text, passwordController.text);
-                },
-              
-            
+            onPressed: () {},
+
             color: Colors.blue,
             textColor: Colors.white,
             child: Text("Enter", style: TextStyle(fontSize: 14)),
