@@ -12,9 +12,7 @@ class FireBaseRepositoryImpl implements FireBaseRepository {
   Future<void> login(String email, String password) async =>
       await firebaseRemoteDataSource.login(email, password);
 
-  @override
-  Stream<List<Users>> getUsers() {
-    // TODO: implement getUsers
-    throw UnimplementedError();
+  
   } 
-}
+
+ 

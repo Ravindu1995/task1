@@ -6,7 +6,7 @@ class GetUsersUseCase {
 
   GetUsersUseCase({this.repository});
 
-  Stream<List<Users>> call() => repository.getUsers();
+  //Stream<List<Users>> call() => repository.getUsers();
 
 
 }
