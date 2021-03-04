@@ -8,11 +8,10 @@ class SignUpWithEmailAndPassword {
 
   SignUpWithEmailAndPassword({this.authRepository});
 
-    Future<Either<Failure, User>> call({String email, String password}) {
+  Future<Either<Failure, User>> call({String email, String password}) {
     return authRepository.signUpWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
-
 }

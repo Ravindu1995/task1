@@ -1,9 +1,11 @@
 
+import 'package:TODO/features/login/presentation/pages/loginViewModel.dart';
 import 'package:TODO/features/signUp/presentation/pages/signUpView.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 
-class LoginFormWidget extends StatelessWidget {
+class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
   
   const LoginFormWidget({
     
@@ -11,7 +13,7 @@ class LoginFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,LoginViewModel model) {
     return Container(
       width: 250,
       child: Column(
@@ -54,7 +56,9 @@ class LoginFormWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.blue)),
-            onPressed: () {},
+            onPressed: () async{
+                await model.login();
+            },
 
             color: Colors.blue,
             textColor: Colors.white,

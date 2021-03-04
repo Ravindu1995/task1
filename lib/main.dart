@@ -1,11 +1,13 @@
-
+import 'package:TODO/serviceLocator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:TODO/features/login/presentation/pages/login.dart';
+import 'package:TODO/features/login/presentation/pages/loginView.dart';
 import 'package:get/get.dart';
 
-
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  setupServiceLocator();
   runApp(MyApp());
 }
 
@@ -32,11 +34,11 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      
       home: LoginPage(),
     );
   }
 }
+
 enum todolist { todo, jefferson }
 
 class MyHomePage extends StatefulWidget {

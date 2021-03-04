@@ -1,9 +1,6 @@
-import 'package:TODO/features/login/domain/entities/users.dart';
+import 'package:TODO/core/error/failures.dart';
+import 'package:dartz/dartz.dart';
 
-abstract class FireBaseRepository {
-  Future<void> login(String email, String password);
-  //Stream<List<Users>> getUsers();
-
-
-        
+abstract class LoginRepository {
+  Future<Either<Failure, String>> login(String email, String password);
 }
