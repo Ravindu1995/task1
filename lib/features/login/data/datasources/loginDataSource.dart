@@ -21,6 +21,9 @@ class LoginDataSourceImpl implements LoginDataSource {
   LoginDataSourceImpl({
     @required this.firebaseAuth,
   }) : assert(firebaseAuth != null, 'Firebase authentication cannot be null');
+
+
+  
   @override
   Future<String> login(String email, String password) async {
     try {
