@@ -1,5 +1,5 @@
 import 'package:TODO/core/error/failures.dart';
-import 'package:TODO/features/login/domain/repositories/firebase_repository.dart';
+import 'package:TODO/features/login/domain/repositories/loginRepository.dart';
 import 'package:TODO/features/login/domain/usecases/login_usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';

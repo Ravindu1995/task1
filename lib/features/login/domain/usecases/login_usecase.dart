@@ -1,10 +1,11 @@
+import 'package:TODO/features/login/domain/repositories/loginRepository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:TODO/core/error/failures.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import 'package:TODO/core/usecases/usecase.dart';
-import 'package:TODO/features/login/domain/repositories/firebase_repository.dart';
+
 
 class LoginUseCase extends UseCase<String, Params> {
   final LoginRepository repository;

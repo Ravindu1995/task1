@@ -1,11 +1,15 @@
 import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 import 'package:flutter/material.dart';
+import 'package:TODO/features/signUp/presentation/pages/signUpViewModel.dart';
+import 'package:stacked/stacked.dart';
 
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
     Key key,
   }) : super(key: key);
+
+  get model => null;
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +89,13 @@ class SignUpFormWidget extends StatelessWidget {
               "Terms & Condition",
               style: TextStyle(fontSize: 25),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+            onPressed: () 
+              async{
+                await model.signUp();
+              //Navigator.push(
+               // context,
+               // MaterialPageRoute(builder: (context) => HomePage()),
+             // );
             },
           ),
           SizedBox(
