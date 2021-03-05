@@ -1,6 +1,6 @@
 import 'package:TODO/core/error/failures.dart';
 import 'package:TODO/core/usecases/usecase.dart';
-import 'package:TODO/features/signUp/domain/repositories/SignUpRepository.dart';
+import 'package:TODO/features/signUp/domain/repositories/signUpRepository.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';

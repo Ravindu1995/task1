@@ -9,6 +9,7 @@ import 'package:TODO/features/signUp/data/repositories/signUpRepositoryImpl.dart
 import 'package:TODO/features/signUp/domain/repositories/signUpRepository.dart';
 import 'package:TODO/features/signUp/domain/usecases/signUpUsecase.dart';
 import 'package:TODO/features/signUp/presentation/pages/signUpViewModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 
@@ -42,13 +43,13 @@ void initSignUp() {
   locator
       .registerLazySingleton(() => SignUpUsecase(signUpRepository: locator()));
 
-  locator.registerLazySingleton<SignUpRepository>(
-      () => SignUpRepositoryImpl(signUpDataSource: locator()));
-
+  // locator.registerLazySingleton<SignUpRepository>(
+  //     () => SignUpRepositoryImpl(signUpDataSource: locator()));
+  locator.registerLazySingleton<SignUpRepository>(() => SignUpRepositoryImpl(signUpDataSource: locator()));
+locator.registerLazySingleton(() => FirebaseFirestore.instance);
   locator.registerLazySingleton<SignUpDataSource>(
-      () => SignUpDataSourceImpl(firebaseAuth: locator()));
+      () => SignUpDataSourceImpl(firebaseAuth: locator(),firebaseFirestore: locator()));
 
-  locator.registerLazySingleton(() => FirebaseAuth.instance);
 
   locator
       .registerLazySingleton(() => SignUpViewModel(signUpUsecase: locator()));

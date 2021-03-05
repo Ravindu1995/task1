@@ -1,13 +1,10 @@
 import 'package:TODO/features/login/data/datasources/loginDataSource.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
+import '../../../mocks/firebaseMocks.dart';
 
-class MockUseCredential extends Mock implements UserCredential {}
 
-class MockUser extends Mock implements User {}
 
 void main() {
   MockFirebaseAuth mockFirebaseAuth;

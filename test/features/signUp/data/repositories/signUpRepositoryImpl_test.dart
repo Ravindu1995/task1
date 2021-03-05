@@ -14,19 +14,21 @@ void main() {
 
   setUp(() {
     mocksignUpDataSource = MocksignUpDataSource();
-    signUpRepositoryImpl = SignUpRepositoryImpl(signUpDataSource: mocksignUpDataSource);
+    signUpRepositoryImpl =
+        SignUpRepositoryImpl(signUpDataSource: mocksignUpDataSource);
   });
   test('should return string from dat source when success', () async {
-    when(mocksignUpDataSource.signUp('afs','afs', 'afs'))
+    when(mocksignUpDataSource.signUp('afs', 'afs', 'afs'))
         .thenAnswer((realInvocation) async => 'Signed up');
-    expect(await signUpRepositoryImpl.signUp('afs','afs', 'afs'), Right('Signed up'));
+    expect(await signUpRepositoryImpl.signUp('afs', 'afs', 'afs'),
+        Right('Signed up'));
   });
 
   test('should return failure when authenticationexception is thrown',
       () async {
-    when(mocksignUpDataSource.signUp('afs','afs', 'afs')).thenAnswer(
+    when(mocksignUpDataSource.signUp('afs', 'afs', 'afs')).thenAnswer(
         (realInvocation) async => throw AuthException(message: 'error'));
-    expect(await signUpRepositoryImpl.signUp('afs','afs', 'afs'),
+    expect(await signUpRepositoryImpl.signUp('afs', 'afs', 'afs'),
         Left(AuthFailure('error')));
   });
 }

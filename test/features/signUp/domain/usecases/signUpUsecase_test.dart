@@ -8,29 +8,27 @@ import 'package:mockito/mockito.dart';
 class MockSignUp extends Mock implements SignUpRepository {}
 
 void main() {
-  MockSignUp  mockSignUp;
+  MockSignUp mockSignUp;
   SignUpUsecase signUpUsecase;
 
-  setUp((){
+  setUp(() {
     mockSignUp = MockSignUp();
     signUpUsecase = SignUpUsecase(signUpRepository: mockSignUp);
-  }
-  );
-  
+  });
 
   test('should return success string from repository', () async {
-    when(mockSignUp.signUp('afs','afs', 'afs'))
-
+    when(mockSignUp.signUp('afs', 'afs', 'afs'))
         .thenAnswer((realInvocation) async => Right('signed up'));
-    expect(await signUpUsecase(Params(name: 'afs',email: 'afs', password: 'afs')),
+    expect(
+        await signUpUsecase(Params(name: 'afs', email: 'afs', password: 'afs')),
         Right('signed up'));
   });
 
   test('should return auth failure from repo', () async {
-    when(mockSignUp.signUp('afs','afs', 'afs'))
-    
+    when(mockSignUp.signUp('afs', 'afs', 'afs'))
         .thenAnswer((realInvocation) async => Left(AuthFailure('Error')));
-    expect(await signUpUsecase(Params(name: 'afs',email: 'afs', password: 'afs')),
+    expect(
+        await signUpUsecase(Params(name: 'afs', email: 'afs', password: 'afs')),
         Left(AuthFailure('Error')));
   });
 }
