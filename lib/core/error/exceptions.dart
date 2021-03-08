@@ -4,3 +4,11 @@ class AuthException implements Exception {
     this.message,
   });
 }
+
+class FailException implements Exception {
+  final String message;
+  FailException({
+    this.message,
+  });
+}
+

@@ -18,3 +18,9 @@ class MockCollctionRef extends Mock implements CollectionReference {
 class MockDocumentRef extends Mock implements DocumentReference {
   
 }
+
+
+class MockQuerySnapshot extends Mock implements QuerySnapshot {}
+
+class MockDocumentSnapshot extends Mock implements DocumentSnapshot {}
+

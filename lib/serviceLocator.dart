@@ -1,3 +1,9 @@
+import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
+
+import 'package:TODO/features/homePage/data/repositories/toDoRepositoryImpl.dart';
+import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
+import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
+import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
 import 'package:TODO/features/login/data/datasources/loginDataSource.dart';
 import 'package:TODO/features/login/data/repositories/loginRepositoryImpl.dart';
 import 'package:TODO/features/login/domain/repositories/loginRepository.dart';
@@ -18,6 +24,7 @@ GetIt locator = GetIt.instance;
 setupServiceLocator() {
   initLogin();
   initSignUp();
+  initShow();
 }
 
 void initLogin() {
@@ -45,12 +52,27 @@ void initSignUp() {
 
   // locator.registerLazySingleton<SignUpRepository>(
   //     () => SignUpRepositoryImpl(signUpDataSource: locator()));
-  locator.registerLazySingleton<SignUpRepository>(() => SignUpRepositoryImpl(signUpDataSource: locator()));
-locator.registerLazySingleton(() => FirebaseFirestore.instance);
-  locator.registerLazySingleton<SignUpDataSource>(
-      () => SignUpDataSourceImpl(firebaseAuth: locator(),firebaseFirestore: locator()));
-
+  locator.registerLazySingleton<SignUpRepository>(
+      () => SignUpRepositoryImpl(signUpDataSource: locator()));
+  locator.registerLazySingleton(() => FirebaseFirestore.instance);
+  locator.registerLazySingleton<SignUpDataSource>(() => SignUpDataSourceImpl(
+      firebaseAuth: locator(), firebaseFirestore: locator()));
 
   locator
       .registerLazySingleton(() => SignUpViewModel(signUpUsecase: locator()));
+}
+
+initShow() {
+  locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
+
+  locator.registerLazySingleton<ToDoRepository>(
+      () => ToDoRepositoryImpl(toDoDataSource: locator()));
+
+  locator.registerLazySingleton(() => FirebaseFirestore.instance);
+
+  locator.registerLazySingleton<ToDoDataSource>(() => ToDoDataSourceImpl(
+      firestore: locator()));
+
+  locator
+      .registerLazySingleton(() => ToDoViewModel(toDoUsecase: locator()));
 }

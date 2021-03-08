@@ -1,10 +1,11 @@
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 
 class ToDoModel extends ToDoList {
 
-  ToDoModel({String title, String task}) : 
-        super(title, task);
+  ToDoModel({@required String title,@required String task}) : 
+        super(title , task);
 
         factory ToDoModel.fromJson(Map<String,dynamic> json){
           return ToDoModel(
@@ -16,15 +17,15 @@ class ToDoModel extends ToDoList {
 
   factory ToDoModel.fromMap(DocumentSnapshot documentSnapshot) {
     return ToDoModel(
-      title: documentSnapshot.data()['title'],
-      task: documentSnapshot.data()['task'],
+      title: documentSnapshot['title'],
+      task: documentSnapshot['task'],
     );
   }
 
-  Map<String,dynamic> toDocument(){
+ /* Map<String,dynamic> toDocument(){
     return {
       "title":title,
       "task":task,
     };
-  }
+  }*/
 }
