@@ -13,7 +13,7 @@ class ToDoRepositoryImpl implements ToDoRepository {
   assert(toDoDataSource != null, 'Data source cannot be null');
 
   @override
-  Future<Either<Failure, String>> deleteTask(String title) {
+  Future<Either<Failure, bool>> deleteTask(String docId) {
     // TODO: implement deleteTask
     throw UnimplementedError();
   }
@@ -30,7 +30,7 @@ class ToDoRepositoryImpl implements ToDoRepository {
   }
 
   @override
-  Future<Either<Failure, String>> insertTask(String title, String task) {
+  Future<Either<Failure, String>> insertTask(ToDoList toDoList) {
     // TODO: implement insertTask
     throw UnimplementedError();
   }

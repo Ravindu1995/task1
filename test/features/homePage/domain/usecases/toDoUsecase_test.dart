@@ -12,9 +12,9 @@ class MockToDoRepository extends Mock implements ToDoRepository {}
 void main() {
 
   final List<ToDoList> taskList = [
-    ToDoList("todo", "fadf"),
-    ToDoList("dfd", "faddfdff"),
-    ToDoList("tdsfdfodo", "fadgddf"),
+    ToDoList('',"todo", "fadf"),
+    ToDoList('',"dfd", "faddfdff"),
+    ToDoList('',"tdsfdfodo", "fadgddf"),
   ];
 
   MockToDoRepository mockToDoRepository;

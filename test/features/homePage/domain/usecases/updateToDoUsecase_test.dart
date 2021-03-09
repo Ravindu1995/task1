@@ -10,7 +10,7 @@ class MockUpdate extends Mock implements ToDoRepository {}
 
 void main() {
   final tTodo = ToDoList(
-      'Lunch', 'Hilton cafe',
+     '', 'Lunch', 'Hilton cafe',
   );
 
   MockUpdate mockUpdate;
