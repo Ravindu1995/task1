@@ -6,26 +6,26 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class ToDoUsecase extends UseCase<List<ToDoList>, NoParams> {
+class ToDoUsecase extends UseCase<List<ToDoList>, Params> {
   final ToDoRepository toDoRepository;
 
   ToDoUsecase({@required this.toDoRepository})
       : assert(toDoRepository != null, 'Repository cannot be null');
 
   @override
-  Future<Either<Failure, List<ToDoList>>> call(NoParams params) async {
-    return await toDoRepository.getToDoList();
+  Future<Either<Failure, List<ToDoList>>> call(Params params) async {
+    return await toDoRepository.getToDoList(params.docID);
   }
 }
 
 class Params extends Equatable {
-  final String title;
-  final String task;
+  final String docID;
+  
   Params({
-    @required this.title,
-    @required this.task,
+    @required this.docID,
+    
   });
 
   @override
-  List<Object> get props => [title, task];
+  List<Object> get props => [docID];
 }

@@ -1,15 +1,14 @@
 import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
-//import 'package:TODO/main.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:TODO/main.dart';
 import 'package:flutter_test/flutter_test.dart';
-//import 'package:mockito/mockito.dart';
-
+import 'package:mockito/mockito.dart';
 import '../../../mocks/firebaseMocks.dart';
-//import '../repositories/toDoRepositoryImpl_test.dart';
+
 
 void main() {
 
   final Map<String, dynamic> tData = {
+    'docId':'',
     'title': "Todox",
     'task': "dinner",
     
@@ -22,6 +21,7 @@ void main() {
   MockDocumentSnapshot mockDocumentSnapshot;
   ToDoDataSourceImpl toDoDataSourceImpl;
   MockQuerySnapshot mockQuerySnapshot;
+  
 
   setUp(() {
     mockQuerySnapshot = MockQuerySnapshot();
@@ -31,26 +31,31 @@ void main() {
     mockDocumentSnapshot = MockDocumentSnapshot();
   });
 
-/*
-  test('should return todo model list', () async {
-    when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
 
-    when(mockDocumentSnapshot.data).thenReturn();
+  // test('should return todo model list', () async {
+  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-    when(mockQuerySnapshot.docs).thenReturn([]);
+  //   when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
 
-    when(mockCollctionRef.doc(any)).
-        thenReturn(mockDocumentRef);
-        when(mockDocumentRef.set({
-      'title': 'todo',
-      'task': 'task',
-    })).thenAnswer((realInvocation) async => );
-    when(mockUseCredential.doc).thenReturn(mockFirebaseFirestore);
+  //   when(mockDocumentRef.get()).thenAnswer((_) async => mockDocumentSnapshot);
 
-     
+  //   when(mockDocumentSnapshot.data()).thenAnswer();
 
-    expect(await toDoDataSourceImpl.getTodoList(), todolist);
-  });
+  //   final result = await toDoDataSourceImpl.getTodoList('docID');
 
-  */
+  //   expect(result, todolist); 
+  // });
+
+  // test('should thrown an exception when trying  to create account ', () async {
+  //   when(mockFirebaseFirestore.collection(any))
+  //       .thenAnswer((realInvocation) async => throw Exception('Error'));
+
+  //   final call = toDoDataSourceImpl.getTodoList;
+
+  //   expect(() => call('afs'), throwsException);
+  // });
+
+  
+
+  
 }

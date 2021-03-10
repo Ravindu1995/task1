@@ -7,19 +7,16 @@ import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'dart:html';
 
 class MockToDoDatasources extends Mock implements ToDoDataSource {}
 
 void main() {
   final taskList = [
     ToDoList(
-      '',
-       'Todo 1',
-       'todo one',
+      '', 'Todo 1','todo one',
     ),
   ];
-
-
 
   MockToDoDatasources mockToDoDatasources;
   ToDoRepositoryImpl toDoRepositoryImpl;
@@ -29,9 +26,9 @@ void main() {
     toDoRepositoryImpl = ToDoRepositoryImpl( toDoDataSource : mockToDoDatasources);
   });
   test('should emit task list successfully ', () async {
-      when(mockToDoDatasources.getTodoList())
-      .thenAnswer(((_) async => taskList));
-    expect(await toDoRepositoryImpl.getToDoList(),
+      when(mockToDoDatasources.getTodoList('docID'))
+      .thenAnswer((realInvocation) async => taskList);
+    expect(await toDoRepositoryImpl.getToDoList('docID'),
         Right(taskList));
   });
 

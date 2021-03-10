@@ -25,14 +25,14 @@ void main() {
     toDoUsecase = ToDoUsecase(toDoRepository: mockToDoRepository);
   });
   test('should return task list', () async {
-    when(mockToDoRepository.getToDoList())
+    when(mockToDoRepository.getToDoList('docID'))
         .thenAnswer((realInvocation) async => Right(taskList));
-    expect(await toDoUsecase(NoParams()), Right(taskList));
+    expect(await toDoUsecase(Params(docID: 'docID')), Right(taskList));
   });
 
   test('should fail return list', () async {
-    when(mockToDoRepository.getToDoList())
+    when(mockToDoRepository.getToDoList('docID'))
         .thenAnswer((realInvocation) async => Left(ServerFailure('Error')));
-    expect(await toDoUsecase(NoParams()), Left(ServerFailure('Error')));
+    expect(await toDoUsecase(Params(docID: 'docID')), Left(ServerFailure('Error')));
   });
 }

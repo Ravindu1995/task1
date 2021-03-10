@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 class ToDoModel extends ToDoList {
 
   ToDoModel({@required String docId,@required String title,@required String task}) : 
-        super(docId,title , task);
+        super(docId ,title , task);
 
         factory ToDoModel.fromJson(Map<String,dynamic> json){
           return ToDoModel(

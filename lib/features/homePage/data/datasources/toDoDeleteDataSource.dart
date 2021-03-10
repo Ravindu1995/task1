@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:TODO/core/error/failures.dart';
 
 abstract class ToDoDeleteDataSource {
-  Future<Either<Failure, String>> deleteTask(String title);
+  Future<bool> deleteTask(String docID);
 }
 
 class ToDoDeleteDataSourceImpl implements ToDoDeleteDataSource {
@@ -15,11 +15,11 @@ class ToDoDeleteDataSourceImpl implements ToDoDeleteDataSource {
       : assert(firebaseFirestore != null, 'this datasource cant be null');
 
       @override
-     Future<Either<Failure, String>> deleteTask(String title) async {
-        print(title);
+     Future<bool> deleteTask(String docID) async {
+        print(docID);
         return await firebaseFirestore
             .collection('todo')
-            .doc(title)
+            .doc(docID)
             .delete()
             .then((val) {
           return ;
