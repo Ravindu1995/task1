@@ -1,4 +1,5 @@
 import 'package:TODO/core/error/exceptions.dart';
+import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 //import 'package:TODO/core/error/failures.dart';
 
 //import 'package:TODO/main.dart';
@@ -7,7 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class ToDoDataSource {
-  Future<String> getTodoList(String title,String task);
+  Future<List<ToDoModel>> getTodoList();
 }
 
 class ToDoDataSourceImpl implements ToDoDataSource {
@@ -15,22 +16,15 @@ class ToDoDataSourceImpl implements ToDoDataSource {
 
   ToDoDataSourceImpl({@required this.firestore})
       : assert(firestore != null, 'this datasource cant be null');
-
+//* List<TodoModels>
   @override
-  Future<String> getTodoList(String title,String task) async {
+  Future<List<ToDoModel>> getTodoList() async {
     try {
-      await firestore
-          .collection('todo')
-          .doc()
-          .get()
-          .then((DocumentSnapshot documentSnapshot) {
-        if (documentSnapshot.exists) {
-          print('Document data: ${documentSnapshot.data()}');
-        }
-        return 'Loaded';
-      });
-
-      ///!
+     
+      final res = await firestore.collection('todo').get();
+      if (res !=null&& res.docs != null && res.docs.isNotEmpty) {
+        return res.docs.map((e) => ToDoModel.fromMap(e.data())).toList();
+      }
       throw Exception('Cannot Load list');
     } on FailException catch (e) {
       throw FailException(message: e.message);

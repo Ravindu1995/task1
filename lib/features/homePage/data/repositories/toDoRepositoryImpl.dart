@@ -28,7 +28,7 @@ class ToDoRepositoryImpl implements ToDoRepository {
   Future<Either<Failure, bool>> deleteTask(String docID) async {
     try {
       return Right(await toDoDeleteDataSource.deleteTask(docID));
-    } on Exception {
+    } on FailException {
       return Left(ServerFailure('Error'));
     }
   }
@@ -36,8 +36,8 @@ class ToDoRepositoryImpl implements ToDoRepository {
   @override
   Future<Either<Failure, String>> getToDoList(String title, String task) async {
     try {
-      return Right(await toDoDataSource.getTodoList(title, task));
-    } on Exception {
+      return Right('aas');
+    } on FailException {
       return Left(ServerFailure('Error'));
     }
   }

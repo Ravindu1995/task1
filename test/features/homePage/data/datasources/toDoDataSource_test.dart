@@ -1,56 +1,62 @@
 import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
-import 'package:TODO/main.dart';
+import 'package:TODO/features/homePage/data/models/toDoModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+
 import '../../../mocks/firebaseMocks.dart';
+
+class MockQuerySnapshot extends Mock implements QuerySnapshot {}
+
+class MockQueryDocSnapshot extends Mock implements QueryDocumentSnapshot {}
 
 void main() {
   //final tData = {''};
-
+  MockQuerySnapshot mockQuerySnapshot;
   MockFirebaseFirestore mockFirebaseFirestore;
   MockCollctionRef mockCollctionRef;
-  MockDocumentRef mockDocumentRef;
-  MockDocumentSnapshot mockDocumentSnapshot;
+  MockQueryDocSnapshot mockQueryDocSnapshot;
   ToDoDataSourceImpl toDoDataSourceImpl;
-  MockToDoList mockToDoList;
 
   setUp(() {
     mockFirebaseFirestore = MockFirebaseFirestore();
-    toDoDataSourceImpl = ToDoDataSourceImpl(firestore: mockFirebaseFirestore);
     mockCollctionRef = MockCollctionRef();
-    mockDocumentSnapshot = MockDocumentSnapshot();
-    mockToDoList = MockToDoList();
+    mockQuerySnapshot = MockQuerySnapshot();
+    mockQueryDocSnapshot = MockQueryDocSnapshot();
+    toDoDataSourceImpl = ToDoDataSourceImpl(firestore: mockFirebaseFirestore);
+  });
+  final todo = ToDoModel(docId: 'af', task: 'af', title: 'af');
+  test('should return todo model list', () async {
+    when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+
+    when(mockCollctionRef.get()).thenAnswer((_) async => mockQuerySnapshot);
+
+    when(mockQuerySnapshot.docs).thenReturn([mockQueryDocSnapshot]);
+    when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap());
+
+    final result = await toDoDataSourceImpl.getTodoList();
+
+    expect(result, [todo]);
   });
 
-  // test('should return todo model list', () async {
-  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+  test('should throw  exception ', () async {
+    when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  //   when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
+    when(mockCollctionRef.get())
+        .thenAnswer((_) async => throw Exception('Erro'));
 
-  //   when(mockDocumentRef.get()).thenAnswer((_) async => mockDocumentSnapshot);
+    final call = toDoDataSourceImpl.getTodoList;
 
-  //   when(mockDocumentSnapshot.data()).thenReturn(any);
+    expect(() => call(), throwsException);
+  });
 
-  //   final result = await toDoDataSourceImpl.getTodoList('', '');
+  test('should throw  exception ', () async {
+    when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  //   expect(result, 'Loaded');
-  // });
+    when(mockCollctionRef.get()).thenAnswer((_) async => null);
 
-  // test('should thrown an exception when trying  to create account ', () async {
-  //   when(mockFirebaseFirestore.collection(any))
-  //       .thenAnswer((realInvocation) async => throw Exception('Error'));
+    final call = toDoDataSourceImpl.getTodoList;
 
-  //   final call = toDoDataSourceImpl.getTodoList;
-
-  //   expect(() => call('afs'), throwsException);
-  // });
-
-  // test('should thrown an exception loading ', () async {
-  //   when(mockFirebaseFirestore.collection(any))
-  //       .thenReturn((realInvocation) async => mockDocumentSnapshot);
-
-  //   final call = toDoDataSourceImpl.getTodoList;
-
-  //   expect(() => call('afs', 'afs'), throwsException);
-  // });
+    expect(() => call(), throwsException);
+  });
 }

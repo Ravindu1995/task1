@@ -11,15 +11,14 @@ class ToDoUpdateDataSourceImpl implements ToDoUpdateDataSource {
 
   ToDoUpdateDataSourceImpl({@required this.firebaseFirestore})
       : assert(firebaseFirestore != null, 'this datasource cant be null');
-
+//TODO: fix this
   @override
   Future<String> updateTask(ToDoList toDoList) async {
-    await firebaseFirestore
+    return await firebaseFirestore
         .doc(toDoList.docId)
-        .update({'title': toDoList.title, 'task': toDoList.task})
-        .then((value) => print("Task Updated"))
-        .catchError((error) => print("Failed to update Task: $error"));
-
-    return 'Updated';
+        .update({'title': toDoList.title, 'task': toDoList.task}).then((value) {
+      print("Task Updated");
+      return 'Updated';
+    }).catchError((error) => print("Failed to update Task: $error"));
   }
 }

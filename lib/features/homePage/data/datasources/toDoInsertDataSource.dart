@@ -15,14 +15,15 @@ class ToDoInsertDataSourceImpl implements ToDoInsertDataSource {
   @override
   Future<String> insertTask(String title, String task) async {
     try {
-      await firebaseFirestore.collection(title).add({
+      final res = await firebaseFirestore.collection(title).add({
         'title': title,
         'task': task,
       });
-      return 'Insered Successfully'; 
-
-    } on FirebaseException
-     catch (e) {
+      if (res != null) {
+        return 'Insered Successfully';
+      }
+      throw Exception('Error cannot write');
+    } on FirebaseException catch (e) {
       throw FailException(message: e.message);
     } on Exception catch (e) {
       throw FailException(message: e.toString());

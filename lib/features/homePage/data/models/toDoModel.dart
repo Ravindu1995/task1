@@ -1,33 +1,53 @@
-import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+
 class ToDoModel extends ToDoList {
+  final String docId;
+  final String title;
+  final String task;
+  ToDoModel({this.docId, this.title, this.task}) : super(docId, title, task);
 
-  ToDoModel({@required String docId,@required String title,@required String task}) : 
-        super(docId ,title , task);
-
-        factory ToDoModel.fromJson(Map<String,dynamic> json){
-          return ToDoModel(
-            docId: json[''],
-            title: json['title'],
-            task: json['task']
-          );
+  factory ToDoModel.fromJson(Map<String, dynamic> json) {
+    return ToDoModel(docId: json[''], title: json['title'], task: json['task']);
   }
 
-  factory ToDoModel.fromMap(DocumentSnapshot documentSnapshot) {
+  // factory ToDoModel.fromMap(DocumentSnapshot documentSnapshot) {
+  //   return ToDoModel(
+  //     docId: documentSnapshot.data()[''],
+  //     title: documentSnapshot.data()['title'],
+  //     task: documentSnapshot.data()['task'],
+  //   );
+  // }
+
+  // Map<String, dynamic> toDocument() {
+  //   return {
+  //     'docId': docId,
+  //     "title": title,
+  //     "task": task,
+  //   };
+  // }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'docId': docId,
+      'title': title,
+      'task': task,
+    };
+  }
+
+  factory ToDoModel.fromMap(Map<String, dynamic> map) {
+    if (map == null) return null;
+  
     return ToDoModel(
-      docId: documentSnapshot.data()[''],
-      title: documentSnapshot.data()['title'],
-      task: documentSnapshot.data()['task'],
+      docId: map['docId'],
+      title: map['title'],
+      task: map['task'],
     );
   }
 
-  Map<String,dynamic> toDocument(){
-    return {
-      'docId' : docId,
-      "title":title,
-      "task":task,
-    };
-  }
+
 }
