@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 
 
 abstract class ToDoRepository {
-  Future<Either<Failure, List<ToDoList>>> getToDoList(String docID);
+  Future<Either<Failure, String>> getToDoList(String title,String task);
   Future<Either<Failure, bool>> deleteTask(String docID);
-  Future<Either<Failure, String>> insertTask(ToDoList toDoList);
+  Future<Either<Failure, String>> insertTask(String title,String task);
   Future<Either<Failure, String>> updateTask(ToDoList toDoList);
 
 

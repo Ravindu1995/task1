@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dartz/dartz.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:TODO/core/error/failures.dart';
 
 abstract class ToDoDeleteDataSource {
   Future<bool> deleteTask(String docID);
@@ -22,7 +19,7 @@ class ToDoDeleteDataSourceImpl implements ToDoDeleteDataSource {
             .doc(docID)
             .delete()
             .then((val) {
-          return ;
+          return true;
         }).catchError((error) {
           print(error.toString());
           throw error;

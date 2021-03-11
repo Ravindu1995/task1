@@ -17,16 +17,17 @@ class ToDoModel extends ToDoList {
 
   factory ToDoModel.fromMap(DocumentSnapshot documentSnapshot) {
     return ToDoModel(
-      docId: documentSnapshot[''],
-      title: documentSnapshot['title'],
-      task: documentSnapshot['task'],
+      docId: documentSnapshot.data()[''],
+      title: documentSnapshot.data()['title'],
+      task: documentSnapshot.data()['task'],
     );
   }
 
- /* Map<String,dynamic> toDocument(){
+  Map<String,dynamic> toDocument(){
     return {
+      'docId' : docId,
       "title":title,
       "task":task,
     };
-  }*/
+  }
 }

@@ -4,33 +4,23 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../../../mocks/firebaseMocks.dart';
 
-
 void main() {
-
-  final Map<String, dynamic> tData = {
-    'docId':'',
-    'title': "Todox",
-    'task': "dinner",
-    
-  };
-
+  //final tData = {''};
 
   MockFirebaseFirestore mockFirebaseFirestore;
   MockCollctionRef mockCollctionRef;
   MockDocumentRef mockDocumentRef;
   MockDocumentSnapshot mockDocumentSnapshot;
   ToDoDataSourceImpl toDoDataSourceImpl;
-  MockQuerySnapshot mockQuerySnapshot;
-  
+  MockToDoList mockToDoList;
 
   setUp(() {
-    mockQuerySnapshot = MockQuerySnapshot();
     mockFirebaseFirestore = MockFirebaseFirestore();
     toDoDataSourceImpl = ToDoDataSourceImpl(firestore: mockFirebaseFirestore);
     mockCollctionRef = MockCollctionRef();
     mockDocumentSnapshot = MockDocumentSnapshot();
+    mockToDoList = MockToDoList();
   });
-
 
   // test('should return todo model list', () async {
   //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
@@ -39,11 +29,11 @@ void main() {
 
   //   when(mockDocumentRef.get()).thenAnswer((_) async => mockDocumentSnapshot);
 
-  //   when(mockDocumentSnapshot.data()).thenAnswer();
+  //   when(mockDocumentSnapshot.data()).thenReturn(any);
 
-  //   final result = await toDoDataSourceImpl.getTodoList('docID');
+  //   final result = await toDoDataSourceImpl.getTodoList('', '');
 
-  //   expect(result, todolist); 
+  //   expect(result, 'Loaded');
   // });
 
   // test('should thrown an exception when trying  to create account ', () async {
@@ -55,7 +45,12 @@ void main() {
   //   expect(() => call('afs'), throwsException);
   // });
 
-  
+  // test('should thrown an exception loading ', () async {
+  //   when(mockFirebaseFirestore.collection(any))
+  //       .thenReturn((realInvocation) async => mockDocumentSnapshot);
 
-  
+  //   final call = toDoDataSourceImpl.getTodoList;
+
+  //   expect(() => call('afs', 'afs'), throwsException);
+  // });
 }
