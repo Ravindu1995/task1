@@ -68,7 +68,7 @@ initShow() {
   locator.registerLazySingleton<ToDoRepository>(
       () => ToDoRepositoryImpl(toDoDataSource: locator()));
 
-  locator.registerLazySingleton(() => FirebaseFirestore.instance);
+  //locator.registerLazySingleton(() => FirebaseFirestore.instance);
 
   locator.registerLazySingleton<ToDoDataSource>(() => ToDoDataSourceImpl(
       firestore: locator()));
