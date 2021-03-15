@@ -22,9 +22,9 @@ void main() {
 
   test('should delete task successfully', () async {
     when(mockToDoRepository.deleteTask(any))
-        .thenAnswer((realInvocation) async => Right(true));
+        .thenAnswer((realInvocation) async => Right('true'));
     
-    expect(await deleteToDoUsecase('docId'), Right(true));
+    expect(await deleteToDoUsecase('docId'), Right('true'));
   });
 
   test('should return task delete failure', () async {

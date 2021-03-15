@@ -1,10 +1,8 @@
 //import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
-import 'package:TODO/features/homePage/data/datasources/toDoInsertDataSource.dart';
 import 'package:TODO/features/homePage/data/repositories/toDoRepositoryImpl.dart';
-//import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
-//import 'package:TODO/main.dart';
+import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -12,24 +10,21 @@ import 'dart:html';
 
 class MockToDoDatasources extends Mock implements ToDoDataSource {}
 
-class MockToDoInsertDataSource extends Mock implements ToDoInsertDataSource {}
-
 void main() {
-  // final taskList = [
-  //   ToDoList(
-  //     '', 'Todo 1','todo one',
-  //   ),
-  // ];
+  final todo = ToDoList(
+    '',
+    'Todo 1',
+    'todo one',
+  );
 
   MockToDoDatasources mockToDoDatasources;
   ToDoRepositoryImpl toDoRepositoryImpl;
-  MockToDoInsertDataSource mockToDoInsertDataSource;
 
   setUp(() {
     mockToDoDatasources = MockToDoDatasources();
     toDoRepositoryImpl =
         ToDoRepositoryImpl(toDoDataSource: mockToDoDatasources);
-    mockToDoInsertDataSource = MockToDoInsertDataSource();
+    mockToDoDatasources = MockToDoDatasources();
   });
   // test('should emit task list successfully ', () async {
   //   when(mockToDoDatasources.getTodoList('abc', 'abc'))
@@ -48,18 +43,17 @@ void main() {
 
   ///Testing FoR InsertTask()
   test('should return string from dat source when inserted', () async {
-    when(mockToDoInsertDataSource.insertTask('abc', 'abc'))
+    when(mockToDoDatasources.insertTask(todo))
         .thenAnswer((realInvocation) async => 'Insered Successfully');
-    expect(await toDoRepositoryImpl.insertTask('abc', 'abc'),
+    expect(await toDoRepositoryImpl.insertTask(todo),
         Right('Insered Successfully'));
   });
 
   test('should return failure when authenticationexception is thrown',
       () async {
-    when(mockToDoInsertDataSource.insertTask('abc', 'abc')).thenAnswer(
+    when(mockToDoDatasources.insertTask(todo)).thenAnswer(
         (realInvocation) async => throw FailException(message: 'Error'));
-    expect(await toDoRepositoryImpl.insertTask('afs', 'afs'),
+    expect(await toDoRepositoryImpl.insertTask(todo),
         Left(FailException()));
   });
-
 }

@@ -1,4 +1,5 @@
-import 'package:TODO/core/error/failures.dart';
+import 'package:TODO/core/usecases/usecase.dart';
+import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
 import 'package:dartz/dartz.dart';
@@ -9,11 +10,11 @@ class MockToDoRepository extends Mock implements ToDoRepository {}
 
 void main() {
 
-  // final List<ToDoList> taskList = [
-  //   ToDoList('',"todo", "fadf"),
-  //   ToDoList('',"dfd", "faddfdff"),
-  //   ToDoList('',"tdsfdfodo", "fadgddf"),
-  // ];
+   final List<ToDoList> taskList = [
+     ToDoList('',"todo", "fadf"),
+    ToDoList('',"dfd", "faddfdff"),
+    ToDoList('',"tdsfdfodo", "fadgddf"),
+   ];
 
   MockToDoRepository mockToDoRepository;
   ToDoUsecase toDoUsecase;
@@ -23,14 +24,14 @@ void main() {
     toDoUsecase = ToDoUsecase(toDoRepository: mockToDoRepository);
   });
   test('should return task list', () async {
-    when(mockToDoRepository.getToDoList('abc','cde'))
-        .thenAnswer((realInvocation) async => Right('Inserted'));
-    expect(await toDoUsecase(Params(title: 'abc',task: 'cde')), Right('Inserted'));
+    when(mockToDoRepository.getToDoList())
+        .thenAnswer((realInvocation) async => Right(taskList));
+    expect(await toDoUsecase(NoParams()), Right(taskList));
   });
 
   test('should fail return list', () async {
-    when(mockToDoRepository.getToDoList('abc','cde'))
-        .thenAnswer((realInvocation) async => Left(ServerFailure('Error')));
-    expect(await toDoUsecase(Params(title: 'abc',task: 'cde')), Left(ServerFailure('Error')));
+    when(mockToDoRepository.getToDoList())
+        .thenReturn(null);
+    expect(await toDoUsecase(NoParams()), null);
   });
 }

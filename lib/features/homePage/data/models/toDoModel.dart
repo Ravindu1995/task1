@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 
 class ToDoModel extends ToDoList {
@@ -31,7 +26,7 @@ class ToDoModel extends ToDoList {
   //   };
   // }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(ToDoList toDoList) {
     return {
       'docId': docId,
       'title': title,
