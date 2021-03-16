@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 abstract class ToDoDataSource {
   Future<List<ToDoModel>> getTodoList();
   Future<String> deleteTask(String docID);
-  Future<String> insertTask(ToDoList toDoList);
+  Future<void> insertTask(String title,String task);
   Future<String> updateTask(ToDoList toDoList);
 }
 
@@ -54,13 +54,13 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   }
 
   @override
-  Future<String> insertTask(ToDoList toDoList) async {
+  Future<void> insertTask(String title,String task) async {
     try {
       await firestore
           .collection('todo')
-          .doc(toDoList.docId)
-          .set({'title': toDoList.title, 'task': toDoList.task}).then((val) {
-        return toDoList;
+          .doc()
+          .set({'title': title, 'task': task}).then((val) {
+        return 'toDoList';
         //data.map((e)=>ToDoModel.toMap());
         //ToDoModel.toMap() => docs.map()
       });

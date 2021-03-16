@@ -1,3 +1,4 @@
+import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 import 'package:TODO/features/signUp/presentation/pages/signUpViewModel.dart';
 import 'package:TODO/serviceLocator.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,12 @@ class SignUpFormWidget extends StatelessWidget {
                       side: BorderSide(color: Colors.blue)),
                   onPressed: () async{
                    await model.signUp();
+                   Navigator.push(
+                     context,
+                     MaterialPageRoute(builder: (context) => HomePage()),
+                     );
                   },
+                  
                   color: Colors.blue,
                   textColor: Colors.white,
                   child: Text("Join", style: TextStyle(fontSize: 14)),

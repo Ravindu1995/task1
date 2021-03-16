@@ -1,84 +1,104 @@
-
+import 'package:TODO/features/homePage/data/models/toDoModel.dart';
+import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
 import '../../../../main.dart';
-
+import '../../../../serviceLocator.dart';
 
 class HomePageFormWidget extends StatelessWidget {
-
   const HomePageFormWidget({
     Key key,
-    
   }) : super(key: key);
 
-  String get title => null;
-  
+  get model => null;
 
-        @override
-        Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<ToDoViewModel>.reactive(
+        builder: (context, model, widget) {
           return Container(
-            alignment: Alignment.center,
+            margin: EdgeInsets.all(15),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Today",
-                  style: TextStyle(fontSize: 30),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextFormField(
+                  controller: model.titleController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter title',
+                    prefixIcon: Icon(
+                      Icons.account_circle,
+                      size: 30,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    contentPadding: EdgeInsets.all(15),
+                  ),
                 ),
-                
-                Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: Column(
+                SizedBox(height: 15),
+                TextFormField(
+                  controller: model.taskController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter task',
+                    prefixIcon: Icon(
+                      Icons.phone_iphone,
+                      size: 30,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    contentPadding: EdgeInsets.all(15),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  height: 40,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: RaisedButton(
+                    child: Text(
+                      'Save ToDo',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    onPressed: () async {
+                      await model.insertTask();
+                    },
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
+                Container(
+                  height: double.infinity,
+                  child: ListView.builder(
+                  itemCount: todo.length,
+                  itemBuilder: (context, index) {
+                  return ListView(
                     children: [
                       
-                      Card(
-                        color: Colors.lightBlue[50],
-                        child: RadioListTile(
-                      title: const Text('Wake Up',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),
-                      Card(child: RadioListTile(
-                      title: const Text('Brush teeth',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),
-                       Card(color: Colors.lightBlue[50],
-                       child: RadioListTile(
-                      title: const Text('Get Breakfast',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),
-                       Card(child: RadioListTile(
-                      title: const Text('Going OUT',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),   
-                        Card(color: Colors.lightBlue[50],
-                        child: RadioListTile(
-                      title: const Text('Get On Bus',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),    
-                        Card(child: RadioListTile(
-                      title: const Text('Buy newspaper',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),), 
-                        Card(color: Colors.lightBlue[50],
-                        child: RadioListTile(
-                      title: const Text('Go to the office',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),), 
-                       Card( 
-                         shadowColor: Colors.redAccent, child: RadioListTile(
-                      title: const Text('come Home',style: TextStyle(fontSize: 25 , ),),
-                      value: todolist.todo, 
-                          ),),   
-                       Card(color: Colors.lightBlue[50],
-                       child: RadioListTile(
-                      title: const Text('Sleep',style: TextStyle(fontSize: 25),),
-                      value: todolist.todo, 
-                          ),),
                     ],
-                  ),
-                ),  
+                    
+                    //title: Text('${todo[index]}'),
+            );
+          },
+        ),
+                )
               ],
             ),
           );
-        }
+        },
+        viewModelBuilder: () => locator<ToDoViewModel>());
+  }
 }

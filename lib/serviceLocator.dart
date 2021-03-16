@@ -2,6 +2,7 @@ import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
 
 import 'package:TODO/features/homePage/data/repositories/toDoRepositoryImpl.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
+import 'package:TODO/features/homePage/domain/usecases/insertToDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
 import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
 import 'package:TODO/features/login/data/datasources/loginDataSource.dart';
@@ -63,7 +64,7 @@ void initSignUp() {
 }
 
 initShow() {
-  locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(() => InsertToDoUsecase(toDoRepository: locator()));
 
   locator.registerLazySingleton<ToDoRepository>(
       () => ToDoRepositoryImpl(toDoDataSource: locator()));
@@ -74,5 +75,5 @@ initShow() {
       firestore: locator()));
 
   locator
-      .registerLazySingleton(() => ToDoViewModel(toDoUsecase: locator()));
+      .registerLazySingleton(() => ToDoViewModel(insertToDoUsecase: locator()));
 }

@@ -3,7 +3,7 @@ import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
+//import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 class ToDoUsecase extends UseCase<List<ToDoList>, NoParams> {
@@ -20,16 +20,16 @@ class ToDoUsecase extends UseCase<List<ToDoList>, NoParams> {
   
 }
 
-class Params extends Equatable {
-  final String title;
-  final String task;
+// class Params extends Equatable {
+//   final String title;
+//   final String task;
   
-  Params({
-    @required this.title,
-    @required this.task,
+//   Params({
+//     @required this.title,
+//     @required this.task,
     
-  });
+//   });
 
-  @override
-  List<Object> get props => [title,task];
-}
+//   @override
+//   List<Object> get props => [title,task];
+// }

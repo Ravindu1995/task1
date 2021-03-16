@@ -23,16 +23,16 @@ void main() {
     insertToDoUsecase = InsertToDoUsecase(toDoRepository: mockInsert);
   });
   test('should return success added return from repository', () async {
-    when(mockInsert.insertTask(todo))
+    when(mockInsert.insertTask('abc','bcd'))
         .thenAnswer((realInvocation) async => Right('inserted'));
-    expect(await insertToDoUsecase(todo),
+    expect(await insertToDoUsecase(Params(title: 'abc',task: 'bcd')),
         Right('inserted'));
   });
 
   test('should return fail added', () async {
-    when(mockInsert.insertTask(todo))
+    when(mockInsert.insertTask('abc','bcd'))
         .thenAnswer((realInvocation) async => Left(ServerFailure('Error')));
-    expect(await insertToDoUsecase(todo),
+    expect(await insertToDoUsecase(Params(title: 'abc',task: 'bcd')),
         Left(ServerFailure('Error')));
   });
 }

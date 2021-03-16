@@ -42,18 +42,18 @@ void main() {
   ///
 
   ///Testing FoR InsertTask()
-  test('should return string from dat source when inserted', () async {
-    when(mockToDoDatasources.insertTask(todo))
-        .thenAnswer((realInvocation) async => 'Insered Successfully');
-    expect(await toDoRepositoryImpl.insertTask(todo),
-        Right('Insered Successfully'));
-  });
+  // test('should return string from dat source when inserted', () async {
+  //   when(mockToDoDatasources.insertTask(todo))
+  //       .thenAnswer((realInvocation) async => 'Insered Successfully');
+  //   expect(await toDoRepositoryImpl.insertTask(todo),
+  //       Right('Insered Successfully'));
+  // });
 
-  test('should return failure when authenticationexception is thrown',
-      () async {
-    when(mockToDoDatasources.insertTask(todo)).thenAnswer(
-        (realInvocation) async => throw FailException(message: 'Error'));
-    expect(await toDoRepositoryImpl.insertTask(todo),
-        Left(FailException()));
-  });
+  // test('should return failure when authenticationexception is thrown',
+  //     () async {
+  //   when(mockToDoDatasources.insertTask(todo)).thenAnswer(
+  //       (realInvocation) async => throw FailException(message: 'Error'));
+  //   expect(await toDoRepositoryImpl.insertTask(todo),
+  //       Left(FailException()));
+  // });
 }

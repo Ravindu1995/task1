@@ -1,5 +1,6 @@
 //import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/core/error/exceptions.dart';
+import 'package:TODO/main.dart';
 
 
 import 'package:dartz/dartz.dart';
@@ -44,9 +45,9 @@ class ToDoRepositoryImpl implements ToDoRepository {
   }
 
   @override
-  Future<Either<Failure, String>> insertTask(ToDoList toDoList) async {
+  Future<Either<Failure, void>> insertTask(String title,String task) async {
     try {
-      return Right(await toDoDataSource.insertTask(toDoList));
+      return Right(await toDoDataSource.insertTask(title,task));
     } on FailException {
       return Left(ServerFailure('Error'));
     }
