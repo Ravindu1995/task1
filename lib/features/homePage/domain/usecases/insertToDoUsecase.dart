@@ -5,14 +5,14 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-class InsertToDoUsecase extends UseCase<String,Params> {
+class InsertToDoUsecase extends UseCase<void,Params> {
   final ToDoRepository toDoRepository;
 
   InsertToDoUsecase({@required this.toDoRepository})
       : assert(toDoRepository != null, 'Repository can not be null');
 
   @override
-  Future<Either<Failure, String>> call(Params params) =>
+  Future<Either<Failure, void>> call(Params params) =>
       toDoRepository.insertTask(params.title,params.task);
 }
 

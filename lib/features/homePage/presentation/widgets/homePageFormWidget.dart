@@ -17,6 +17,9 @@ class HomePageFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ToDoViewModel>.reactive(
+      onModelReady: (model) async{
+        await model.getToDoList();
+      },
         builder: (context, model, widget) {
           return Container(
             margin: EdgeInsets.all(15),
@@ -55,7 +58,14 @@ class HomePageFormWidget extends StatelessWidget {
                 ),
                 Container(
                   height: 40,
-                  child: ListView(
+                  child: ListView.builder(
+                    itemCount: model.allTodos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(model.allTodos[index].title),
+                        subtitle: Text(model.allTodos[index].task),
+                      );
+                    },
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -75,28 +85,27 @@ class HomePageFormWidget extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                       model.insertTask();
+                      model.insertTask();
                     },
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-               Container(
-                   height: double.infinity,
-                      child: ListTile(
-                        key: Key('${todolist.title}'),
-                        title: Text(
-                          todolist.title,
-                        ),
-                        subtitle: Text(todolist.task),
-                        onTap: model.getToDoList(),
-                        //trailing: FlatButton(
-                          //onPressed: deleteTodo,
-                         // child: Icon(Icons.close),
-                       // ),
+                //        Container(
+                //            height: double.infinity,
+                //               child: ListTile(
+                //                 key: Key('${todolist.title}'),
+                //                 title: Text(
+                //                   todolist.title,
+                //                 ),
+                //                 subtitle: Text(todolist.task),
+                //                 onTap: model.getToDoList(),
+                //                 //trailing: FlatButton(
+                //                   //onPressed: deleteTodo,
+                //                  // child: Icon(Icons.close),
+                //                // ),
 
-         ),
-               ),
-                
+                //  ),
+                //        ),
               ],
             ),
           );

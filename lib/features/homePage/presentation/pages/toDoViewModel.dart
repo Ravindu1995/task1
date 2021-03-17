@@ -2,8 +2,6 @@ import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/usecases/insertToDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
-import 'package:TODO/main.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,20 +22,21 @@ class ToDoViewModel extends BaseViewModel {
     res.fold((l) {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {
-      Get.snackbar('Success', r);
+      Get.snackbar('Success', 'added todo');
     });
   }
+  List<ToDoList> allTodos = [];
 
-  
-
-   Future<List<ToDoList>> getToDoList() async {
-       await toDoUsecase(NoParams());
+   Future<void> getToDoList() async {
+     final  res=   await toDoUsecase(NoParams());
       //print(todolist.length);
-      
-      return List();
+      res.fold((l) {}, (r) {
+        allTodos = r;
+        notifyListeners();
+      });
+
 
       }
 
-    
-   }
 }
+// }
