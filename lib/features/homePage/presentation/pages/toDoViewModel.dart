@@ -30,9 +30,14 @@ class ToDoViewModel extends BaseViewModel {
 
   
 
-  Future<List<ToDoList>> getToDoList() async {
-     await toDoUsecase(NoParams());
-    return toList()  ;
+   Future<List<ToDoList>> getToDoList() async {
+       await toDoUsecase(NoParams());
+      //print(todolist.length);
+      
+      return List();
+
+      }
+
     
-  }
+   }
 }

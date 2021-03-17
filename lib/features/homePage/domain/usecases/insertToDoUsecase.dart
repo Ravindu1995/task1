@@ -13,7 +13,7 @@ class InsertToDoUsecase extends UseCase<String,Params> {
 
   @override
   Future<Either<Failure, String>> call(Params params) =>
-      toDoRepository.insertTask(params.title,params.title);
+      toDoRepository.insertTask(params.title,params.task);
 }
 
 class Params extends Equatable {

@@ -65,7 +65,8 @@ void initSignUp() {
 
 initShow() {
   locator.registerLazySingleton(() => InsertToDoUsecase(toDoRepository: locator()));
-
+  locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
+  
   locator.registerLazySingleton<ToDoRepository>(
       () => ToDoRepositoryImpl(toDoDataSource: locator()));
 
@@ -75,5 +76,6 @@ initShow() {
       firestore: locator()));
 
   locator
-      .registerLazySingleton(() => ToDoViewModel(insertToDoUsecase: locator()));
+      .registerLazySingleton(() => ToDoViewModel(toDoUsecase: locator(),
+        insertToDoUsecase: locator()));
 }

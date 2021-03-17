@@ -1,3 +1,6 @@
+//import 'dart:html';
+import 'package:uuid/uuid.dart';
+
 import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 
@@ -56,14 +59,15 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   @override
   Future<void> insertTask(String title,String task) async {
     try {
+      var uuid = Uuid();
       await firestore
           .collection('todo')
-          .doc()
-          .set({'title': title, 'task': task}).then((val) {
-        return 'toDoList';
+          .doc(uuid.v1())
+          .set({'title': title, 'task': task}) 
+        
         //data.map((e)=>ToDoModel.toMap());
         //ToDoModel.toMap() => docs.map()
-      });
+      ;
       throw Exception('Error cannot write');
     } on FailException catch (e) {
       throw FailException(message: e.message);

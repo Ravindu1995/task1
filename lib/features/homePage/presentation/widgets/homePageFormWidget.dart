@@ -75,26 +75,28 @@ class HomePageFormWidget extends StatelessWidget {
                       ),
                     ),
                     onPressed: () async {
-                      await model.insertTask();
+                       model.insertTask();
                     },
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
-                Container(
-                  height: double.infinity,
-                  child: ListView.builder(
-                  itemCount: todo.length,
-                  itemBuilder: (context, index) {
-                  return ListView(
-                    children: [
-                      
-                    ],
-                    
-                    //title: Text('${todo[index]}'),
-            );
-          },
-        ),
-                )
+               Container(
+                   height: double.infinity,
+                      child: ListTile(
+                        key: Key('${todolist.title}'),
+                        title: Text(
+                          todolist.title,
+                        ),
+                        subtitle: Text(todolist.task),
+                        onTap: model.getToDoList(),
+                        //trailing: FlatButton(
+                          //onPressed: deleteTodo,
+                         // child: Icon(Icons.close),
+                       // ),
+
+         ),
+               ),
+                
               ],
             ),
           );
