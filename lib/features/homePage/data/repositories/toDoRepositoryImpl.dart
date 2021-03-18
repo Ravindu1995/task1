@@ -14,15 +14,11 @@ import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 
 class ToDoRepositoryImpl implements ToDoRepository {
   final ToDoDataSource toDoDataSource;
-  //final ToDoDeleteDataSource toDoDeleteDataSource;
-  //final ToDoInsertDataSource toDoInsertDataSource;
-  //final ToDoUpdateDataSource toDoUpdateDataSource;
+  
 
   ToDoRepositoryImpl({
     this.toDoDataSource,
-    //this.toDoDataSource,
-
-    //this.toDoUpdateDataSource,
+    
   }) : assert((toDoDataSource) != null, 'Data source cannot be null');
 
   @override

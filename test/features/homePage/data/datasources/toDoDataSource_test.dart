@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -64,21 +66,21 @@ void main() {
 
   //=============INSERT_TEST====================//
 
-  // test('should add todo list Successfully', () async {
-  //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+  test('should add todo list Successfully', () async {
+    when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
 
-  //   when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
-  //   when(mockDocumentRef.set({
-  //     'title': 'title',
-  //     'task': 'task',
-  //   })).thenAnswer((_) async => mockDocumentRef);
+    when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
+    when(mockDocumentRef.set({
+      'title': 'title',
+      'task': 'task',
+    })).thenAnswer((_) async => Void);
 
-  //   final result = await toDoDataSourceImpl.insertTask(todo);
+    //final result = await toDoDataSourceImpl.insertTask('title','task');
 
-  //   expect(result, todo);
-  // });
+    //expect('title','task');
+  });
 
-  // test('should thrown an exception when user is  null ', () async {
+  // test('should thrown an exception when inputs are  null ', () async {
   //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
 
   //   when(mockCollctionRef.add({
@@ -91,18 +93,19 @@ void main() {
   //   expect(() => call(todo), throwsException);
   // });
 
-  // test('should throw  exception  ', () async {
-  //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+  test('should throw  exception when trying to insert ', () async {
+    when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
 
-  //   when(mockCollctionRef.add({
-  //     'title': 'title',
-  //     'task': 'task',
-  //   })).thenAnswer((_) async => null);
+     when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
+    when(mockDocumentRef.set({
+      'title': 'title',
+      'task': 'task',
+    })).thenAnswer((realInvocation) async =>  throw Exception('Error'));
 
-  //   final call = toDoDataSourceImpl.insertTask;
+    final call = toDoDataSourceImpl.insertTask;
 
-  //   expect(() => call(todo), throwsException);
-  // });
+    expect(() => call('title','task'), throwsException);
+  });
 
 //=============DELETE_TEST====================//
 

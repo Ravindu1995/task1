@@ -24,20 +24,25 @@ class ToDoViewModel extends BaseViewModel {
     res.fold((l) {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {
-      Get.snackbar('Success', r);
+      Get.snackbar('Success', 'added todo');
     });
   }
 
   
 
-   Future<List<ToDoList>> getToDoList() async {
-       await toDoUsecase(NoParams());
+  List<ToDoList> allTodos = [];
+
+   Future<void> getToDoList() async {
+     final  res=   await toDoUsecase(NoParams());
       //print(todolist.length);
-      
-      return List();
+      res.fold((l) {}, (r) {
+        allTodos = r;
+        notifyListeners();
+      });
+
 
       }
 
     
-   }
+   
 }

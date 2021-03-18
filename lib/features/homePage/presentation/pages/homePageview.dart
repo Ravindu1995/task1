@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 class HomePage extends StatelessWidget {
   
  bool selected = true;
+ 
   
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,7 @@ class HomePage extends StatelessWidget {
       
       
       body: SingleChildScrollView(
+        
         child: HomePageFormWidget(),
       ),
 
