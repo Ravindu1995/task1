@@ -1,5 +1,7 @@
+import 'dart:ffi';
+
 import 'package:TODO/core/error/failures.dart';
-import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/insertToDoUsecase.dart';
 import 'package:dartz/dartz.dart';
@@ -9,11 +11,11 @@ import 'package:mockito/mockito.dart';
 class MockInsert extends Mock implements ToDoRepository {}
 
 void main() {
-  final todo = ToDoList(
-     '',
-    'abc',
-     'bcd'
-  );
+  // final todo = ToDoList(
+  //    '',
+  //   'abc',
+  //    'bcd'
+  // );
 
   MockInsert mockInsert;
   InsertToDoUsecase insertToDoUsecase;
@@ -24,9 +26,9 @@ void main() {
   });
   test('should return success added return from repository', () async {
     when(mockInsert.insertTask('abc','bcd'))
-        .thenAnswer((realInvocation) async => Right('inserted'));
+        .thenAnswer((realInvocation) async => Right(Void));
     expect(await insertToDoUsecase(Params(title: 'abc',task: 'bcd')),
-        Right('inserted'));
+        Right(Void));
   });
 
   test('should return fail added', () async {

@@ -1,4 +1,5 @@
 import 'package:TODO/core/error/failures.dart';
+import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/updateToDoUsecase.dart';
@@ -9,9 +10,9 @@ import 'package:mockito/mockito.dart';
 class MockUpdate extends Mock implements ToDoRepository {}
 
 void main() {
-  final tTodo = ToDoList(
-     '', 'Lunch', 'Hilton cafe',
-  );
+  // final tTodo = ToDoList(
+  //    '', 'Lunch', 'Hilton cafe',
+  // );
 
   MockUpdate mockUpdate;
   UpdateToDoUsecase updateToDoUsecase;
@@ -21,16 +22,16 @@ void main() {
     updateToDoUsecase = UpdateToDoUsecase(toDoRepository: mockUpdate);
   });
   test('should update a task succesfully', () async {
-    when(mockUpdate.updateTask(any)).
+    when(mockUpdate.updateTask('abc','cde')).
     thenAnswer((realInvocation) async => Right('Updated'));
-    expect(await updateToDoUsecase(tTodo),
+    expect(await updateToDoUsecase(Params(title: 'abc',task: 'cde')),
     Right('Updated'));
   });
 
   test('should fail while updating', () async {
-    when(mockUpdate.updateTask(any)).
+    when(mockUpdate.updateTask('abc','cde')).
     thenAnswer((realInvocation) async =>  Left(ServerFailure('Error')));
-    expect(await updateToDoUsecase(tTodo),
+    expect(await updateToDoUsecase(Params(title: 'abc',task: 'cde')),
      Left(ServerFailure('Error')));
   });
 

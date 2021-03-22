@@ -92,26 +92,26 @@ class HomePageFormWidget extends StatelessWidget {
                  ),
               
 
-                  Expanded(
-                  child: Column(
-                    children: <Widget>[ 
-                      Container(
-                      child: ListView.builder(
-                        itemCount: model.allTodos.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(model.allTodos[index].title),
-                            subtitle: Text(model.allTodos[index].task),
-                          );
-                              },
-                            scrollDirection: Axis.horizontal,
-                                  ),
-                                 ),
+                  // Expanded(
+                  // child: Column(
+                  //   children: <Widget>[ 
+                  //     Container(
+                  //     child: ListView.builder(
+                  //       itemCount: model.allTodos.length,
+                  //       itemBuilder: (context, index) {
+                  //         return ListTile(
+                  //           title: Text(model.allTodos[index].title),
+                  //           subtitle: Text(model.allTodos[index].task),
+                  //         );
+                  //             },
+                  //           scrollDirection: Axis.horizontal,
+                  //                 ),
+                  //                ),
              
-                      ],
-                     ) 
+                  //     ],
+                  //    ) 
            
-                   ),
+                  //  ),
               ],
               
             ),

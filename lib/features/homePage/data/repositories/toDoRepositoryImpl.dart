@@ -1,6 +1,6 @@
 //import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/core/error/exceptions.dart';
-import 'package:TODO/main.dart';
+import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 
 
 import 'package:dartz/dartz.dart';
@@ -22,7 +22,7 @@ class ToDoRepositoryImpl implements ToDoRepository {
   }) : assert((toDoDataSource) != null, 'Data source cannot be null');
 
   @override
-  Future<Either<Failure, String>> deleteTask(String docID) async {
+  Future<Either<Failure, void>> deleteTask(String docID) async {
     try {
       return Right(await toDoDataSource.deleteTask(docID));
     } on FailException {
@@ -31,7 +31,7 @@ class ToDoRepositoryImpl implements ToDoRepository {
   }
 
   @override
-  Future<Either<Failure, List<ToDoList>>> getToDoList() async {
+  Future<Either<Failure, List<ToDoModel>>> getToDoList() async {
     try {
       final todolist = await toDoDataSource.getTodoList();
       return Right(todolist);
@@ -50,10 +50,10 @@ class ToDoRepositoryImpl implements ToDoRepository {
   }
 
   @override
-  Future<Either<Failure, String>> updateTask(ToDoList toDoList) async {
+  Future<Either<Failure, void>> updateTask(String title,String task) async {
     try {
-      await toDoDataSource.updateTask(toDoList);
-      return Right(toDoList.docId);
+      
+      return Right(await toDoDataSource.updateTask(title,task));
     } on FailException {
       return Left(ServerFailure('Error'));
     }

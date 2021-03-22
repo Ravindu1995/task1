@@ -1,16 +1,22 @@
 import 'dart:ffi';
 
+//import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
+import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+//import 'package:TODO/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../mocks/firebaseMocks.dart';
 
 class MockQuerySnapshot extends Mock implements QuerySnapshot {}
 
 class MockQueryDocSnapshot extends Mock implements QueryDocumentSnapshot {}
+
+class MockUuid extends Mock implements Uuid {}
 
 void main() {
   //final tData = {''};
@@ -20,6 +26,7 @@ void main() {
   MockQueryDocSnapshot mockQueryDocSnapshot;
   ToDoDataSourceImpl toDoDataSourceImpl;
   MockDocumentRef mockDocumentRef;
+  MockUuid mockUuid;
 
   setUp(() {
     mockFirebaseFirestore = MockFirebaseFirestore();
@@ -27,110 +34,134 @@ void main() {
     mockQuerySnapshot = MockQuerySnapshot();
     mockQueryDocSnapshot = MockQueryDocSnapshot();
     mockDocumentRef = MockDocumentRef();
-    toDoDataSourceImpl = ToDoDataSourceImpl(firestore: mockFirebaseFirestore);
+    mockUuid = MockUuid();
+    toDoDataSourceImpl =
+        ToDoDataSourceImpl(firestore: mockFirebaseFirestore, uuid: mockUuid);
   });
+
   final todo = ToDoModel(docId: 'af', task: 'af', title: 'af');
-  // test('should return todo model list', () async {
-  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  //   when(mockCollctionRef.get()).thenAnswer((_) async => mockQuerySnapshot);
+  final todo1 = ToDoList('', 'Todo2', 'go to office');
 
-  //   when(mockQuerySnapshot.docs).thenReturn([mockQueryDocSnapshot]);
-  //   when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap(todo));
+  final Map<String, dynamic> tData = {
+    'docID': '',
+    'title': "Todo2",
+    'task': "go to office",
+  };
 
-  //   final result = await toDoDataSourceImpl.getTodoList();
+  group('get ToDo Test', () {
+    test('should return todo model list', () async {
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  //   expect(result, [todo]);
-  // });
+      when(mockCollctionRef.get()).thenAnswer((_) async => mockQuerySnapshot);
 
-  // test('should throw  exception ', () async {
-  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+      when(mockQuerySnapshot.docs).thenReturn([mockQueryDocSnapshot]);
+      when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap(todo));
 
-  //   when(mockCollctionRef.get())
-  //       .thenAnswer((_) async => throw Exception('Erro'));
+      final result = await toDoDataSourceImpl.getTodoList();
 
-  //   final call = toDoDataSourceImpl.getTodoList;
+      expect(result, [todo]);
+    });
 
-  //   expect(() => call(), throwsException);
-  // });
+    test('should throw  exception ', () async {
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  // test('should throw  exception ', () async {
-  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+      when(mockCollctionRef.get())
+          .thenAnswer((_) async => throw Exception('Erro'));
 
-  //   when(mockCollctionRef.get()).thenAnswer((_) async => null);
+      final call = toDoDataSourceImpl.getTodoList;
 
-  //   final call = toDoDataSourceImpl.getTodoList;
+      expect(() => call(), throwsException);
+    });
 
-  //   expect(() => call(), throwsException);
-  // });
+    test('should throw  exception ', () async {
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  // //=============INSERT_TEST====================//
+      when(mockCollctionRef.get()).thenAnswer((_) async => null);
 
-  test('should add todo list Successfully', () async {
-    when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+      final call = toDoDataSourceImpl.getTodoList;
 
-    when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
-    when(mockDocumentRef.set({
-      'title': 'title',
-      'task': 'task',
-    })).thenAnswer((_) async => Void);
-
-    //final result = await toDoDataSourceImpl.insertTask('title','task');
-
-    //expect('title','task');
+      expect(() => call(), throwsException);
+    });
   });
 
-  // test('should thrown an exception when inputs are  null ', () async {
-  //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+  group('Insert ToDO Test', () {
+    test('should add todo list Successfully', () async {
+      when(mockFirebaseFirestore.collection('todo'))
+          .thenReturn(mockCollctionRef);
+      when(mockUuid.v1()).thenAnswer((_)  => 'Void');
+      when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
+      when(mockDocumentRef.set({
+        'title': 'title',
+        'task': 'task',
+      })).thenAnswer((_) async => Void);
 
-  //   when(mockCollctionRef.add({
-  //     'title': 'title',
-  //     'task': 'task',
-  //   })).thenAnswer((_) async => throw Exception('Error'));
+      expect(
+          toDoDataSourceImpl.insertTask('title', 'task'), isA<Future<void>>());
+    });
 
-  //   final call = toDoDataSourceImpl.insertTask;
+    test('should throw  exception when trying to insert ', () async {
+      when(mockFirebaseFirestore.collection('todo'))
+          .thenReturn(mockCollctionRef);
+      when(mockUuid.v1()).thenAnswer((_)  => 'Void');
+      when(mockCollctionRef.doc('Void')).thenReturn(mockDocumentRef);
+      when(mockDocumentRef.set({
+        'id' : 'Void',
+        'title': 'title',
+        'task': 'task',
+      })).thenAnswer((realInvocation) async => throw Exception('Error'));
 
-  //   expect(() => call(todo), throwsException);
-  // });
+      final call = toDoDataSourceImpl.insertTask;
 
-  test('should throw  exception when trying to insert ', () async {
-    when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
-
-     when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
-    when(mockDocumentRef.set({
-      'title': 'title',
-      'task': 'task',
-    })).thenAnswer((realInvocation) async =>  throw Exception('Error'));
-
-    final call = toDoDataSourceImpl.insertTask;
-
-    expect(() => call('title','task'), throwsException);
+      expect(() => call('title', 'task'), throwsException);
+    });
   });
 
-//=============DELETE_TEST====================//
+  group('Delete toDO test', () {
+    test('Should delete task successfully', () async {
+      when(mockFirebaseFirestore.collection('todo'))
+          .thenReturn(mockCollctionRef);
 
-  // test('Should delete task successfully', () async {
-  //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+      when(mockCollctionRef.doc('docID')).thenReturn(mockDocumentRef);
 
-  //   when(mockCollctionRef.doc('docID')).thenReturn(mockDocumentRef);
+      when(mockDocumentRef.delete()).thenAnswer((_) async => Void);
+    });
 
-  //   when(mockDocumentRef.delete()).thenAnswer((_) => Future.value(true));
+    test('should throw exception ', () async {
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
 
-  //   final result = await toDoDataSourceImpl.deleteTask('docID');
+      when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
 
-  //   expect(result, 'Deleted');
-  // });
+      when(mockDocumentRef.delete())
+          .thenAnswer((_) async => throw Exception('Error'));
 
-  // test('should throw exception ', () async {
-  //   when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+      final call = toDoDataSourceImpl.deleteTask;
 
-  //   when(mockCollctionRef.doc())
-  //       .thenReturn(mockDocumentRef);
+      expect(() => call('docID'), throwsException);
+    });
+  });
 
-  //   when(mockDocumentRef.delete()).thenAnswer((_) => throw Exception('Cannot Delete Task'));
+  group('update todo test', () {
+    test('Should update task successfully', () async {
+      when(mockFirebaseFirestore.collection('todo'))
+          .thenReturn(mockCollctionRef);
 
-  //   final call = toDoDataSourceImpl.deleteTask;
+      when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
 
-  //   expect(() => call('docID'), throwsException);
-  // });
+      when(mockDocumentRef.update(tData)).thenAnswer((_) async => Void);
+    });
+
+    // test('should throw  exception when trying to Update ', () async {
+    //   when(mockFirebaseFirestore.collection('todo')).thenReturn(mockCollctionRef);
+
+    //   when(mockCollctionRef.doc(any)).thenReturn(mockDocumentRef);
+
+    //   when(mockDocumentRef.update(tData))
+    //       .thenAnswer((realInvocation) async => throw Exception('Error'));
+
+    //   final call = toDoDataSourceImpl.updateTask;
+
+    //   expect(() => call(todo1), throwsException);
+    // });
+  });
 }

@@ -1,26 +1,28 @@
 //import 'dart:html';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
-
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:flutter/cupertino.dart';
 
 abstract class ToDoDataSource {
   Future<List<ToDoModel>> getTodoList();
-  Future<String> deleteTask(String docID);
-  Future<void> insertTask(String title,String task);
-  Future<String> updateTask(ToDoList toDoList);
+  Future<void> deleteTask(String docID);
+  Future<void> insertTask(String title, String task);
+  Future<void> updateTask(String title, String task);
 }
 
 class ToDoDataSourceImpl implements ToDoDataSource {
   final FirebaseFirestore firestore;
 
-  ToDoDataSourceImpl({@required this.firestore})
-      : assert(firestore != null, 'this datasource cant be null');
+  final Uuid uuid;
+
+  ToDoDataSourceImpl({
+    @required this.firestore,
+    @required this.uuid,
+  }) : assert(firestore != null, 'this datasource cant be null');
 
 //* List<TodoModels>
   @override
@@ -39,16 +41,11 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   }
 
   @override
-  Future<String> deleteTask(String docID) async {
+  Future<void> deleteTask(String docID) async {
     try {
-      final res =
-          await firestore.collection('todo').doc(docID).delete().then((value) {
-        return (true);
-      });
-      if (res == true) {
-        return 'Deleted';
-      }
-      throw Exception('Cannot Delete Task');
+      await firestore.collection('todo').doc('docID').delete();
+
+      //throw Exception('Cannot Delete Task');
     } on FailException catch (e) {
       throw FailException(message: e.message);
     } on Exception catch (e) {
@@ -57,18 +54,18 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   }
 
   @override
-  Future<void> insertTask(String title,String task) async {
+  Future<void> insertTask(String title, String task) async {
     try {
-      var uuid = Uuid();
+      final uid = uuid.v1();
       await firestore
-          .collection('todo')
-          .doc(uuid.v1())
-          .set({'title': title, 'task': task}) 
-        
-        //data.map((e)=>ToDoModel.toMap());
-        //ToDoModel.toMap() => docs.map()
-      ;
-      throw Exception('Error cannot write');
+              .collection('todo')
+              .doc(uid)
+              .set({ 'id' : uuid ,'title': title, 'task': task})
+
+          //data.map((e)=>ToDoModel.toMap());
+          //ToDoModel.toMap() => docs.map()
+          ;
+      //throw Exception('Error cannot write');
     } on FailException catch (e) {
       throw FailException(message: e.message);
     } on Exception catch (e) {
@@ -77,16 +74,14 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   }
 
   @override
-  Future<String> updateTask(ToDoList toDoList) async {
+  Future<void> updateTask(String title, String task) async {
     try {
       await firestore
           .collection('todo')
-          .doc(toDoList.docId)
-          .update({'title': toDoList.title, 'task': toDoList.task}).then((val) {
-        return toDoList.docId;
-      });
+          .doc('docId')
+          .update({'title': title, 'task': task});
 
-      throw Exception('Cannot Update list');
+      //throw Exception('Cannot Update list');
     } on FailException catch (e) {
       throw FailException(message: e.message);
     } on Exception catch (e) {

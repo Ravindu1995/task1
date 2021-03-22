@@ -1,4 +1,5 @@
 import 'package:TODO/core/error/failures.dart';
+import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/deleteToDoUsecase.dart';
 //import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
@@ -14,24 +15,24 @@ DeleteToDoUsecase deleteToDoUsecase;
 
 void main() {
 
-  String title;
+  //String title;
   setUp(() {
     mockToDoRepository = MockToDoRepository();
     deleteToDoUsecase = DeleteToDoUsecase(toDoRepository: mockToDoRepository);
   });
 
   test('should delete task successfully', () async {
-    when(mockToDoRepository.deleteTask(any))
-        .thenAnswer((realInvocation) async => Right('true'));
+    when(mockToDoRepository.deleteTask('abc'))
+        .thenAnswer((realInvocation) async => Right('Deleted'));
     
-    expect(await deleteToDoUsecase('docId'), Right('true'));
+    expect(await deleteToDoUsecase(Params(docID : 'abc')), Right('Deleted'));
   });
 
   test('should return task delete failure', () async {
-    when(mockToDoRepository.deleteTask(title))
+    when(mockToDoRepository.deleteTask('abc'))
         .thenAnswer((realInvocation) async => Left(ServerFailure('Error')));
     
-    expect(await deleteToDoUsecase(title), Left(ServerFailure('Error')));
+    expect(await deleteToDoUsecase(Params(docID : 'abc')), Left(ServerFailure('Error')));
   });
 
 }

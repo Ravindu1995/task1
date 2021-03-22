@@ -21,7 +21,7 @@ class Params extends Equatable {
   final String title;
   final String task;
   Params({
-    //@required this.docID,
+     //this.docID,
     @required this.title,
     @required this.task,
   });
@@ -29,3 +29,5 @@ class Params extends Equatable {
   @override
   List<Object> get props => [title, task];
 }
+
+
