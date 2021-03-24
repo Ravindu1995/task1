@@ -1,5 +1,6 @@
+import 'dart:ffi';
+
 import 'package:TODO/core/error/failures.dart';
-import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/deleteToDoUsecase.dart';
 //import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
@@ -23,9 +24,9 @@ void main() {
 
   test('should delete task successfully', () async {
     when(mockToDoRepository.deleteTask('abc'))
-        .thenAnswer((realInvocation) async => Right('Deleted'));
+        .thenAnswer((realInvocation) async => Right(Void));
     
-    expect(await deleteToDoUsecase(Params(docID : 'abc')), Right('Deleted'));
+    expect(await deleteToDoUsecase(Params(docID : 'abc')), Right(Void));
   });
 
   test('should return task delete failure', () async {

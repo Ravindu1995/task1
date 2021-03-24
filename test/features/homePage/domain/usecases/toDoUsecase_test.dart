@@ -1,3 +1,4 @@
+import 'package:TODO/core/error/failures.dart';
 import 'package:TODO/core/usecases/usecase.dart';
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
@@ -9,12 +10,11 @@ import 'package:mockito/mockito.dart';
 class MockToDoRepository extends Mock implements ToDoRepository {}
 
 void main() {
-
-   final List<ToDoList> taskList = [
-     ToDoList('',"todo", "fadf"),
-    ToDoList('',"dfd", "faddfdff"),
-    ToDoList('',"tdsfdfodo", "fadgddf"),
-   ];
+  final List<ToDoList> taskList = [
+    ToDoList('', "todo", "fadf"),
+    ToDoList('', "dfd", "faddfdff"),
+    ToDoList('', "tdsfdfodo", "fadgddf"),
+  ];
 
   MockToDoRepository mockToDoRepository;
   ToDoUsecase toDoUsecase;
@@ -25,13 +25,13 @@ void main() {
   });
   test('should return task list', () async {
     when(mockToDoRepository.getToDoList())
-        .thenAnswer((realInvocation) async => Right(taskList));
-    expect(await toDoUsecase(NoParams()), Right(taskList));
+      .thenAnswer((realInvocation) async => Right(taskList));
+        expect(await toDoUsecase(NoParams()), Right(taskList));
   });
 
   test('should fail return list', () async {
-    when(mockToDoRepository.getToDoList())
-        .thenReturn(null);
-    expect(await toDoUsecase(NoParams()), null);
+    when(mockToDoRepository.getToDoList()).
+    thenAnswer((realInvocation) async => Left(ServerFailure('Error')));
+    expect(await toDoUsecase(NoParams()), Left(ServerFailure('Error')));
   });
 }

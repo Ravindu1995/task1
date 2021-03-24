@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
-import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+
 
 abstract class ToDoDataSource {
   Future<List<ToDoModel>> getTodoList();
@@ -60,7 +60,7 @@ class ToDoDataSourceImpl implements ToDoDataSource {
       await firestore
               .collection('todo')
               .doc(uid)
-              .set({ 'id' : uuid ,'title': title, 'task': task})
+              .set({ 'id' : uid ,'title': title, 'task': task})
 
           //data.map((e)=>ToDoModel.toMap());
           //ToDoModel.toMap() => docs.map()

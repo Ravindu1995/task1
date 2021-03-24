@@ -1,6 +1,6 @@
-import 'package:TODO/features/homePage/data/models/toDoModel.dart';
+//import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -13,21 +13,21 @@ class HomePageFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   get model => null;
-
+  
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ToDoViewModel>.reactive(
-      onModelReady: (model) async{
-        await model.getToDoList();
-      },
+        onModelReady: (model) async {
+          await model.getToDoList();
+        },
         builder: (context, model, widget) {
           return Container(
-             height: 400,
-              width: 400,
+            height: 400,
+            width: 400,
             margin: EdgeInsets.all(15),
-            
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Column(
                   children: [
@@ -58,17 +58,17 @@ class HomePageFormWidget extends StatelessWidget {
                         contentPadding: EdgeInsets.all(15),
                       ),
                     ),
+                    // SizedBox(
+                    //   height: 5,
+                    // ),
+                    // Container(
+                    //   height: 40,
+                    //   child: ListView(
+                    //     scrollDirection: Axis.horizontal,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 15,
-                    ),
-                    Container(
-                      height: 40,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
                     ),
                     Container(
                       width: double.infinity,
@@ -83,41 +83,48 @@ class HomePageFormWidget extends StatelessWidget {
                           ),
                         ),
                         onPressed: () async {
-                           model.insertTask();
+                          model.insertTask();
                         },
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ],
-                 ),
+                ),
+
+
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    width: double.infinity,
+                    child: Card(
+                      color: Colors.purple[100],
+                      margin: EdgeInsets.all(8),
+                      child: ListView.builder(
+                        itemCount: model.allTodos.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(model.allTodos[index].title),
+                            subtitle: Text(model.allTodos[index].task),
+                            onTap: () async {
+                              model.getToDoList();
+                            },
+                            // onLongPress: () async {
+                            //   model.deleteTask();
+                            // },
+                            // selected: isSelected,
+                          );
+                        },
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    ),
+                  ),
+                ),
+
               
 
-                  // Expanded(
-                  // child: Column(
-                  //   children: <Widget>[ 
-                  //     Container(
-                  //     child: ListView.builder(
-                  //       itemCount: model.allTodos.length,
-                  //       itemBuilder: (context, index) {
-                  //         return ListTile(
-                  //           title: Text(model.allTodos[index].title),
-                  //           subtitle: Text(model.allTodos[index].task),
-                  //         );
-                  //             },
-                  //           scrollDirection: Axis.horizontal,
-                  //                 ),
-                  //                ),
-             
-                  //     ],
-                  //    ) 
-           
-                  //  ),
               ],
-              
             ),
-          
-          );
-          
+          ); 
         },
         viewModelBuilder: () => locator<ToDoViewModel>());
   }

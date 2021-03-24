@@ -2,8 +2,10 @@ import 'package:TODO/features/homePage/data/datasources/toDoDataSource.dart';
 
 import 'package:TODO/features/homePage/data/repositories/toDoRepositoryImpl.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
+import 'package:TODO/features/homePage/domain/usecases/deleteToDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/insertToDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
+import 'package:TODO/features/homePage/domain/usecases/updateToDoUsecase.dart';
 import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
 import 'package:TODO/features/login/data/datasources/loginDataSource.dart';
 import 'package:TODO/features/login/data/repositories/loginRepositoryImpl.dart';
@@ -19,6 +21,8 @@ import 'package:TODO/features/signUp/presentation/pages/signUpViewModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:uuid/uuid.dart';
+
 
 GetIt locator = GetIt.instance;
 
@@ -66,16 +70,22 @@ void initSignUp() {
 initShow() {
   locator.registerLazySingleton(() => InsertToDoUsecase(toDoRepository: locator()));
   locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
-  
+  locator.registerLazySingleton(() => UpdateToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(() => DeleteToDoUsecase(toDoRepository: locator()));
+
+
   locator.registerLazySingleton<ToDoRepository>(
       () => ToDoRepositoryImpl(toDoDataSource: locator()));
 
   //locator.registerLazySingleton(() => FirebaseFirestore.instance);
+  locator.registerLazySingleton<ToDoDataSource>(
+      () => ToDoDataSourceImpl(firestore: locator(), uuid: locator()));
+      
+  locator.registerLazySingleton(() => Uuid());
 
-  locator.registerLazySingleton<ToDoDataSource>(() => ToDoDataSourceImpl(
-      firestore: locator()));
-
-  locator
-      .registerLazySingleton(() => ToDoViewModel(toDoUsecase: locator(),
-        insertToDoUsecase: locator()));
+  locator.registerLazySingleton(() => ToDoViewModel(
+      toDoUsecase: locator(),
+      insertToDoUsecase: locator(),
+      updateToDoUsecase: locator(),
+      deleteToDoUsecase: locator()));
 }

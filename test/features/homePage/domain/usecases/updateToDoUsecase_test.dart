@@ -1,6 +1,6 @@
+import 'dart:ffi';
 import 'package:TODO/core/error/failures.dart';
-import 'package:TODO/core/usecases/usecase.dart';
-import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
+//import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/updateToDoUsecase.dart';
 import 'package:dartz/dartz.dart';
@@ -23,9 +23,9 @@ void main() {
   });
   test('should update a task succesfully', () async {
     when(mockUpdate.updateTask('abc','cde')).
-    thenAnswer((realInvocation) async => Right('Updated'));
+    thenAnswer((realInvocation) async => Right(Void));
     expect(await updateToDoUsecase(Params(title: 'abc',task: 'cde')),
-    Right('Updated'));
+    Right(Void));
   });
 
   test('should fail while updating', () async {

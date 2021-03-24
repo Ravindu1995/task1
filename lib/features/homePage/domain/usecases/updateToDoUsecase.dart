@@ -20,11 +20,11 @@ class UpdateToDoUsecase extends UseCase<void, Params> {
 }
 
 class Params extends Equatable {
-  final String docID;
+  //final String docID;
   final String title;
   final String task;
   Params({
-     this.docID,
+     //this.docID,
     @required this.title,
     @required this.task,
   });
