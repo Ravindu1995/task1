@@ -142,3 +142,21 @@ class NewWidget extends StatelessWidget {
     );
   }
 }
+// Container(
+//                       width: double.infinity,
+//                       padding: EdgeInsets.symmetric(horizontal: 10),
+//                       child:  RaisedButton(
+//                         child: Text(
+//                           'Save ToDo',
+//                           style: TextStyle(
+//                             fontSize: 20,
+//                             color: Colors.white,
+//                             fontWeight: FontWeight.w600,
+//                           ),
+//                         ),
+//                         onPressed: () async {
+//                           model.insertTask();
+//                         },
+//                         color: Theme.of(context).primaryColor,
+//                       ),
+//                     ),

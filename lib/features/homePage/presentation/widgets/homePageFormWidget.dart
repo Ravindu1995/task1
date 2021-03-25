@@ -22,7 +22,7 @@ class HomePageFormWidget extends StatelessWidget {
         },
         builder: (context, model, widget) {
           return Container(
-            height: 400,
+            height: 800,
             width: 400,
             margin: EdgeInsets.all(15),
             child: Column(
@@ -70,12 +70,14 @@ class HomePageFormWidget extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: RaisedButton(
+                    
+
+                     Row( 
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        RaisedButton(
                         child: Text(
-                          'Save ToDo',
+                          'Save',
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -87,40 +89,75 @@ class HomePageFormWidget extends StatelessWidget {
                         },
                         color: Theme.of(context).primaryColor,
                       ),
-                    ),
-                  ],
-                ),
 
-
-                Expanded(
-                  flex: 2,
-                  child: Container(
-                    width: double.infinity,
-                    child: Card(
-                      color: Colors.purple[100],
-                      margin: EdgeInsets.all(8),
-                      child: ListView.builder(
-                        itemCount: model.allTodos.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(model.allTodos[index].title),
-                            subtitle: Text(model.allTodos[index].task),
-                            onTap: () async {
-                              model.getToDoList();
-                            },
-                            // onLongPress: () async {
-                            //   model.deleteTask();
-                            // },
-                            // selected: isSelected,
-                          );
+                      RaisedButton(
+                        child: Text(
+                          'Update',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () async {
+                          model.insertTask();
                         },
-                        scrollDirection: Axis.horizontal,
+                        color: Colors.green[800],
                       ),
-                    ),
-                  ),
-                ),
 
-              
+                      RaisedButton(
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        onPressed: () async {
+                          model.deleteTask();
+                        },
+                        color: Colors.red[600],
+                      ),
+                      ],
+                     ),
+                      
+                  ],
+                 ),
+
+                      
+                          Expanded(  
+                            child: Card(
+                              color: Colors.red[100],
+                            child: ListView.builder(
+                                  itemExtent: 60.0,
+                                  shrinkWrap: false,
+                                  itemCount: model.allTodos.length,
+                                  itemBuilder: (context, index) {
+                                    return ListTile(
+                                      focusColor: Colors.blue,
+                                      title: Text(model.allTodos[index].title, 
+                                               style: TextStyle(fontSize: 20 , ), ),
+                                      subtitle: Text(model.allTodos[index].task,
+                                               style: TextStyle(fontSize: 15), ),
+                                      onTap: () async {
+                                      },
+                                      
+                                      // onLongPress: () async {
+                                      //   model.deleteTask();
+                                      // },
+                                      // selected: isSelected,
+                                    );
+                                  },
+                                  scrollDirection: Axis.vertical,
+                                ),
+                          )
+                            
+                             
+                            ),
+                          
+                       
+                  
 
               ],
             ),
