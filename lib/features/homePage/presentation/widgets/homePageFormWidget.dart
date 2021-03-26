@@ -13,7 +13,7 @@ class HomePageFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   get model => null;
-  
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ToDoViewModel>.reactive(
@@ -70,98 +70,80 @@ class HomePageFormWidget extends StatelessWidget {
                     SizedBox(
                       height: 15,
                     ),
-                    
 
-                     Row( 
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         RaisedButton(
-                        child: Text(
-                          'Save',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        onPressed: () async {
-                          model.insertTask();
-                        },
-                        color: Theme.of(context).primaryColor,
-                      ),
-
-                      RaisedButton(
-                        child: Text(
-                          'Update',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        onPressed: () async {
-                          model.insertTask();
-                        },
-                        color: Colors.green[800],
-                      ),
-
-                      RaisedButton(
-                        child: Text(
-                          'Delete',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        onPressed: () async {
-                          model.deleteTask();
-                        },
-                        color: Colors.red[600],
-                      ),
-                      ],
-                     ),
-                      
-                  ],
-                 ),
-
-                      
-                          Expanded(  
-                            child: Card(
-                              color: Colors.red[100],
-                            child: ListView.builder(
-                                  itemExtent: 60.0,
-                                  shrinkWrap: false,
-                                  itemCount: model.allTodos.length,
-                                  itemBuilder: (context, index) {
-                                    return ListTile(
-                                      focusColor: Colors.blue,
-                                      title: Text(model.allTodos[index].title, 
-                                               style: TextStyle(fontSize: 20 , ), ),
-                                      subtitle: Text(model.allTodos[index].task,
-                                               style: TextStyle(fontSize: 15), ),
-                                      onTap: () async {
-                                      },
-                                      
-                                      // onLongPress: () async {
-                                      //   model.deleteTask();
-                                      // },
-                                      // selected: isSelected,
-                                    );
-                                  },
-                                  scrollDirection: Axis.vertical,
-                                ),
-                          )
-                            
-                             
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
                             ),
-                          
-                       
-                  
-
+                          ),
+                          onPressed: () async {
+                            model.insertTask();
+                          },
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        RaisedButton(
+                          child: Text(
+                            'Update',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          onPressed: () async {
+                            model.insertTask();
+                          },
+                          color: Colors.green[800],
+                        ),
+                      
+                      ],
+                    ),
+                  ],
+                ),
+                Expanded(
+                    child: Card(
+                  color: Colors.red[100],
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    //itemExtent: 100.0,
+                    shrinkWrap: true,
+                    itemCount: model.allTodos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        focusColor: Colors.blue,
+                        title: Text(
+                          model.allTodos[index].title,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        subtitle: Text(
+                          model.allTodos[index].task,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        onTap: () async {
+                          // model.deleteTask
+                        },
+                        
+                        onLongPress: () async {
+                          await model.deleteTask(index);
+                        },
+                        
+                      );
+                    },
+                    scrollDirection: Axis.vertical,
+                  ),
+                )),
               ],
             ),
-          ); 
+          );
         },
         viewModelBuilder: () => locator<ToDoViewModel>());
   }

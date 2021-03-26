@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:TODO/features/homePage/domain/entities/toDoList.dart';
 
 class ToDoModel extends ToDoList {
@@ -6,9 +8,9 @@ class ToDoModel extends ToDoList {
   final String task;
   ToDoModel({this.docId, this.title, this.task}) : super(docId, title, task);
 
-  factory ToDoModel.fromJson(Map<String, dynamic> json) {
-    return ToDoModel(docId: json[''], title: json['title'], task: json['task']);
-  }
+  // factory ToDoModel.fromJson(Map<String, dynamic> json) {
+  //   return ToDoModel(docId: json[''], title: json['title'], task: json['task']);
+  // }
 
   // factory ToDoModel.fromMap(DocumentSnapshot documentSnapshot) {
   //   return ToDoModel(
@@ -26,23 +28,19 @@ class ToDoModel extends ToDoList {
   //   };
   // }
 
-  Map<String, dynamic> toMap(ToDoList toDoList) {
+  Map<String, dynamic> toMap() {
     return {
-      'docId': docId,
+      'id': docId,
       'title': title,
       'task': task,
     };
   }
 
   factory ToDoModel.fromMap(Map<String, dynamic> map) {
-    if (map == null) return null;
-  
     return ToDoModel(
-      docId: map['docId'],
+      docId: map['id'],
       title: map['title'],
       task: map['task'],
     );
   }
-
-
 }

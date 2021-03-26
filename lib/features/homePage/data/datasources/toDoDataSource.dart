@@ -43,7 +43,7 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   @override
   Future<void> deleteTask(String docID) async {
     try {
-      await firestore.collection('todo').doc('docID').delete();
+      return  await firestore.collection('todo').doc(docID).delete();
 
       //throw Exception('Cannot Delete Task');
     } on FailException catch (e) {
