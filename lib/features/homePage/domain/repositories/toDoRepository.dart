@@ -8,6 +8,7 @@ abstract class ToDoRepository {
   Future<Either<Failure, void>> deleteTask(String docID);
   Future<Either<Failure, void>> insertTask(String title,String task);
   Future<Either<Failure, void>> updateTask(String title,String task);
+  Stream<List<ToDoList>>  getListOfTodo();
 
 
 }

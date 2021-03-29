@@ -148,3 +148,8 @@ class HomePageFormWidget extends StatelessWidget {
         viewModelBuilder: () => locator<ToDoViewModel>());
   }
 }
+
+abstract class Stream<String>{
+
+  Stream();
+}

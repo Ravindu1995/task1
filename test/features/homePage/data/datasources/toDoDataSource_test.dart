@@ -57,7 +57,7 @@ void main() {
       when(mockCollctionRef.get()).thenAnswer((_) async => mockQuerySnapshot);
 
       when(mockQuerySnapshot.docs).thenReturn([mockQueryDocSnapshot]);
-      when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap(todo));
+      when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap());
 
       final result = await toDoDataSourceImpl.getTodoList();
 
@@ -177,4 +177,19 @@ void main() {
       
     });
   });
+
+
+  test('should return todo model list', ()  {
+      when(mockFirebaseFirestore.collection(any)).thenReturn(mockCollctionRef);
+
+      when(mockCollctionRef.snapshots()).thenAnswer((_) =>  Stream.fromIterable([mockQuerySnapshot]));
+
+      when(mockQuerySnapshot.docs).thenReturn([mockQueryDocSnapshot]);
+
+      when(mockQueryDocSnapshot.data()).thenReturn(todo.toMap());
+
+      final result = toDoDataSourceImpl.getListOfTodo();
+
+      expectLater(result, emitsInOrder([todo]));
+    });
 }

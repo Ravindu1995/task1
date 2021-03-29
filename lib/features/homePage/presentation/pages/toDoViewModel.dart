@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
 
-class ToDoViewModel extends StreamViewModel {
+class ToDoViewModel extends BaseViewModel {
   final ToDoUsecase toDoUsecase;
   final inserttodo.InsertToDoUsecase insertToDoUsecase;
   final deletetodo.DeleteToDoUsecase deleteToDoUsecase;
@@ -60,12 +60,8 @@ class ToDoViewModel extends StreamViewModel {
     });
   }
 
-  @override
-  // TODO: implement stream
-  Stream get stream => throw UnimplementedError();
-
-  // Future<void> updateTask() async {
-  //   final res = await updateToDoUsecase(ToDoList(title: titleController.text, task: taskController.text));
-  // }
-}
-// }
+    // Future<void> updateTask(String title, ) async {
+    //    final res = await updateToDoUsecase(ToDoList(title: titleController.text, task: taskController.text));
+    //  }
+          
+ }

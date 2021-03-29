@@ -1,4 +1,5 @@
 //import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:uuid/uuid.dart';
@@ -6,12 +7,12 @@ import 'package:uuid/uuid.dart';
 import 'package:TODO/core/error/exceptions.dart';
 import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 
-
 abstract class ToDoDataSource {
   Future<List<ToDoModel>> getTodoList();
   Future<void> deleteTask(String docID);
   Future<void> insertTask(String title, String task);
   Future<void> updateTask(String title, String task);
+  Stream<List<ToDoModel>> getListOfTodo();
 }
 
 class ToDoDataSourceImpl implements ToDoDataSource {
@@ -41,9 +42,20 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   }
 
   @override
+  Stream<List<ToDoModel>> getListOfTodo() {
+    return firestore.collection('todo').snapshots().map((abc)
+     => abc.docs.map((bcd) 
+     => ToDoModel.fromMap(bcd.data()) ) .toList());
+    
+  }
+
+  // Stream documentStream =
+  //     FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
+
+  @override
   Future<void> deleteTask(String docID) async {
     try {
-      return  await firestore.collection('todo').doc(docID).delete();
+      return await firestore.collection('todo').doc(docID).delete();
 
       //throw Exception('Cannot Delete Task');
     } on FailException catch (e) {
@@ -60,7 +72,7 @@ class ToDoDataSourceImpl implements ToDoDataSource {
       await firestore
               .collection('todo')
               .doc(uid)
-              .set({ 'id' : uid ,'title': title, 'task': task})
+              .set({'id': uid, 'title': title, 'task': task})
 
           //data.map((e)=>ToDoModel.toMap());
           //ToDoModel.toMap() => docs.map()

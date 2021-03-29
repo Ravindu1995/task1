@@ -102,5 +102,24 @@ void main() {
         Left(ServerFailure('Error')));
   });
   });
+
+
+  test('should emit  list ', () {
+      when(mockToDoDatasources.getListOfTodo())
+          .thenAnswer((realInvocation)  => Stream.fromIterable([todo]));
+      expect( toDoRepositoryImpl.getListOfTodo(), emitsInOrder([todo]) );
+    });
+
+    test('should return  empty ', () {
+      when(mockToDoDatasources.getListOfTodo())
+          .thenAnswer((realInvocation)  => Stream.empty());
+      expect( toDoRepositoryImpl.getListOfTodo(), emitsDone );
+    });
+
+    test('should return Error ', () {
+      when(mockToDoDatasources.getListOfTodo())
+          .thenAnswer((realInvocation)  => Stream.error('ERR'));
+      expect( toDoRepositoryImpl.getListOfTodo(), emitsError('ERR') );
+    });
   
 }
