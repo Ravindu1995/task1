@@ -4,16 +4,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 abstract class LoginDataSource {
   Future<String> login(String email, String password);
+  //Future<void> isUserLoggedIn();
   //Stream<List<UserModel>> getUsers();
 }
 
-// class FirebaseRemoteDataSourceImpl implements FirebaseRemoteDataSource {
-//   final FirebaseAuth _auth = FirebaseAuth.instance;
-
-//   @override
-//   Future<void> login(String email, String password) async {
-//     await _auth.signInWithEmailAndPassword(email: email, password: password);
-//   }
 
 // }
 class LoginDataSourceImpl implements LoginDataSource {
@@ -22,8 +16,6 @@ class LoginDataSourceImpl implements LoginDataSource {
     @required this.firebaseAuth,
   }) : assert(firebaseAuth != null, 'Firebase authentication cannot be null');
 
-
-  
   @override
   Future<String> login(String email, String password) async {
     try {
@@ -39,4 +31,13 @@ class LoginDataSourceImpl implements LoginDataSource {
       throw AuthException(message: e.toString());
     }
   }
+
+  // @override
+  // Future<void> isUserLoggedIn() async{
+  //   // TODO: implement isUserLoggedIn
+  //   final user = await firebaseAuth.currentUser();
+  //   return user != null;
+  // }
+
+  
 }

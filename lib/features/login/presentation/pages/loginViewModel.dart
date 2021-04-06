@@ -1,3 +1,4 @@
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
@@ -6,6 +7,8 @@ import 'package:TODO/features/login/domain/usecases/login_usecase.dart';
 
 class LoginViewModel extends BaseViewModel {
   final LoginUseCase loginUseCase;
+  //final FirebaseAuth firebaseAuth;
+
   LoginViewModel({
     @required this.loginUseCase,
   }) : assert(loginUseCase != null, 'Login usecase cannot be null');
@@ -20,3 +23,18 @@ class LoginViewModel extends BaseViewModel {
     });
   }
 }
+
+ // @override
+  // TODO: implement streamsMap
+  // Map<String, StreamData> get streamsMap => throw UnimplementedError();
+
+  // Future handleStartUpLogic() async {
+  //   var hasLoggedInUser = await firebaseAuth.isUserLoggedIn();
+
+  //   if (hasLoggedInUser) {
+  //     _navigationService.navigateTo(HomeViewRoute);
+  //   } else {
+  //     _navigationService.navigateTo(LoginViewRoute);
+  //   }
+  // }
+

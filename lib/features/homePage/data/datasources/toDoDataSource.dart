@@ -43,14 +43,9 @@ class ToDoDataSourceImpl implements ToDoDataSource {
 
   @override
   Stream<List<ToDoModel>> getListOfTodo() {
-    return firestore.collection('todo').snapshots().map((abc)
-     => abc.docs.map((bcd) 
-     => ToDoModel.fromMap(bcd.data()) ) .toList());
-    
+    return firestore.collection('todo').snapshots().map(
+        (abc) => abc.docs.map((bcd) => ToDoModel.fromMap(bcd.data())).toList());
   }
-
-  // Stream documentStream =
-  //     FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
 
   @override
   Future<void> deleteTask(String docID) async {
@@ -88,10 +83,11 @@ class ToDoDataSourceImpl implements ToDoDataSource {
   @override
   Future<void> updateTask(String title, String task) async {
     try {
-      await firestore
+      final uid = uuid.v1();
+      return await firestore
           .collection('todo')
-          .doc('docId')
-          .update({'title': title, 'task': task});
+          .doc(uid)
+          .update({ 'id' : uid ,'title': title, 'task': task});
 
       //throw Exception('Cannot Update list');
     } on FailException catch (e) {

@@ -1,10 +1,10 @@
 //import 'package:TODO/features/homePage/data/models/toDoModel.dart';
 import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
+import 'package:TODO/features/homePage/presentation/widgets/const.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../../../main.dart';
 import '../../../../serviceLocator.dart';
 
 class HomePageFormWidget extends StatelessWidget {
@@ -12,15 +12,15 @@ class HomePageFormWidget extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  get model => null;
+  //get model => null;
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ToDoViewModel>.reactive(
-        onModelReady: (model) async {
-          await model.getToDoList();
+        onModelReady: (model) {
+          // model.getToDoList();
         },
-        builder: (context, model, widget ) {
+        builder: (_, model, widget) {
           return Container(
             height: 800,
             width: 400,
@@ -88,21 +88,22 @@ class HomePageFormWidget extends StatelessWidget {
                           },
                           color: Theme.of(context).primaryColor,
                         ),
-                        RaisedButton(
-                          child: Text(
-                            'Update',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          onPressed: () async {
-                            model.insertTask();
-                          },
-                          color: Colors.green[800],
-                        ),
-                      
+
+                        // RaisedButton(
+                        //   child: Text(
+                        //     'Sign Out',
+                        //     style: TextStyle(
+                        //       fontSize: 20,
+                        //       color: Colors.white,
+                        //       fontWeight: FontWeight.w600,
+                        //     ),
+                        //   ),
+                        //   onPressed: () async {
+                        //     model.signOut();
+                        //   },
+                        //   color: Theme.of(context).primaryColor,
+                        // ),
+                        
                       ],
                     ),
                   ],
@@ -114,28 +115,26 @@ class HomePageFormWidget extends StatelessWidget {
                     physics: NeverScrollableScrollPhysics(),
                     //itemExtent: 100.0,
                     shrinkWrap: true,
-                    itemCount: model.allTodos.length,
+                    itemCount: model.todos != null ? model.todos.length : 0,
                     itemBuilder: (context, index) {
-                      return ListTile(
+                      return  ListTile(
                         focusColor: Colors.blue,
                         title: Text(
-                          model.allTodos[index].title,
+                          model.todos[index].title,
                           style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
                         subtitle: Text(
-                          model.allTodos[index].task,
+                          model.todos[index].task,
                           style: TextStyle(fontSize: 15),
                         ),
                         onTap: () async {
-                          // model.deleteTask
+                          showDialog(context: Get.context, child: Popup(toDoViewModel: model,),  );
                         },
-                        
                         onLongPress: () async {
                           await model.deleteTask(index);
                         },
-                        
                       );
                     },
                     scrollDirection: Axis.vertical,
@@ -148,3 +147,32 @@ class HomePageFormWidget extends StatelessWidget {
         viewModelBuilder: () => locator<ToDoViewModel>());
   }
 }
+
+// void popup() async {
+//       await showMenu(
+
+//         position: RelativeRect.fromLTRB(100, 100, 100, 100),
+//         items: [
+//           PopupMenuItem(
+//             value: 1
+//             child: Text("View"),
+//           ),
+//           PopupMenuItem(
+//              value: 2
+//             child: Text("Edit"),
+//           ),
+//           PopupMenuItem(
+//             value: 3
+//             child: Text("Delete"),
+//           ),
+//         ],
+//         elevation: 8.0,
+//       ).then((value){
+
+// // NOTE: even you didnt select item this method will be called with null of value so you should call your call back with checking if value is not null
+
+//       if(value!=null)
+//        print(value);
+
+//        });
+//     }

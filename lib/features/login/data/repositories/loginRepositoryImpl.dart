@@ -19,4 +19,10 @@ class LoginReposiyoryImpl implements LoginRepository {
       return Left(AuthFailure(e.message));
     }
   }
+
+  // @override
+  // Future<bool> isUserLoggedIn() {
+  //   // TODO: implement isUserLoggedIn
+  //   throw UnimplementedError();
+  // }
 }

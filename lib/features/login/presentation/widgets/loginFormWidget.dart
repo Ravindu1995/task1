@@ -60,6 +60,10 @@ class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
                 side: BorderSide(color: Colors.blue)),
             onPressed: () async{
                 await model.login();
+                // Navigator.push(
+                // context,
+                // MaterialPageRoute(builder: (context) => HomePage()),
+              //);
             },
 
             color: Colors.blue,

@@ -4,6 +4,7 @@ import 'package:TODO/features/homePage/data/repositories/toDoRepositoryImpl.dart
 import 'package:TODO/features/homePage/domain/repositories/toDoRepository.dart';
 import 'package:TODO/features/homePage/domain/usecases/deleteToDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/insertToDoUsecase.dart';
+import 'package:TODO/features/homePage/domain/usecases/stream.dart';
 import 'package:TODO/features/homePage/domain/usecases/toDoUsecase.dart';
 import 'package:TODO/features/homePage/domain/usecases/updateToDoUsecase.dart';
 import 'package:TODO/features/homePage/presentation/pages/toDoViewModel.dart';
@@ -70,8 +71,10 @@ void initSignUp() {
 initShow() {
   locator.registerLazySingleton(() => InsertToDoUsecase(toDoRepository: locator()));
   locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(() => StreamUse(toDoRepository: locator()));
   locator.registerLazySingleton(() => UpdateToDoUsecase(toDoRepository: locator()));
   locator.registerLazySingleton(() => DeleteToDoUsecase(toDoRepository: locator()));
+  //locator.registerLazySingleton(() => SignOutUsecase(signOutRepository: locator()));
 
 
   locator.registerLazySingleton<ToDoRepository>(
@@ -84,8 +87,11 @@ initShow() {
   locator.registerLazySingleton(() => Uuid());
 
   locator.registerLazySingleton(() => ToDoViewModel(
+      streamUse : locator(),
       toDoUsecase: locator(),
       insertToDoUsecase: locator(),
       updateToDoUsecase: locator(),
-      deleteToDoUsecase: locator()));
+      deleteToDoUsecase: locator(),
+      //signOutUsecase: locator(),
+      ));
 }
