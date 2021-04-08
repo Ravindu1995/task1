@@ -1,5 +1,9 @@
 import 'package:TODO/features/TODO/presentation/homeView.dart';
+import 'package:TODO/features/profile/presentation/pages/profileModel.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+
+import '../../../../serviceLocator.dart';
 
 class ProfileFormWidget extends StatelessWidget {
   const ProfileFormWidget({
@@ -8,73 +12,54 @@ class ProfileFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ViewModelBuilder<ProfileModel>.reactive(
+        onModelReady: (model) {},
+        builder: (_, model, widget) {
     return Container(
       width: 250,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(40.0),
-                ),
-              ),
-              labelText: 'Full Name',
-              hintText: 'Enter Full Name ',
-            ),
-          ),
-          SizedBox(
-            width: 20.0,
-            height: 30.0,
-          ),
-          TextField(
-            decoration: InputDecoration(
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderRadius: const BorderRadius.all(
-                  const Radius.circular(40.0),
-                ),
-              ),
-              labelText: 'Email',
-              hintText: 'Enter valid mail id ',
-            ),
-          ),
-          SizedBox(
-            width: 20.0,
-            height: 30.0,
-          ),
-          TextField(
-            decoration: InputDecoration(
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(
-                    const Radius.circular(40.0),
+          Expanded(
+                    child: Card(
+                  color: Colors.green[100],
+                  child: ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    //itemExtent: 100.0,
+                    shrinkWrap: true,
+                    itemCount: model.users != null ? model.users.length : 0,
+                    itemBuilder: (context, index) {
+                      return  ListTile(
+                        focusColor: Colors.blue,
+                        title: Text(
+                          model.users[index].name,
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        subtitle: Text(
+                          model.users[index].email,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        // onTap: () async {
+                        //   showDialog(context: Get.context, child: Popup(toDoViewModel: model,),  );
+                        // },
+                        // onLongPress: () async {
+                        //   await model.deleteTask(index);
+                        // },
+                      );
+                    },
+                    scrollDirection: Axis.vertical,
                   ),
-                ),
-                labelText: 'Password',
-                hintText: 'Enter your secure password'),
-          ),
-          SizedBox(
-            width: 20.0,
-            height: 30.0,
-          ),
-          RaisedButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.blue)),
-            color: Colors.blue,
-            textColor: Colors.white,
-            child: Text("Update", style: TextStyle(fontSize: 14)),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
+                )),
         ],
       ),
     );
+        },
+        viewModelBuilder: () => locator<ProfileModel>());
+
+    
+    
   }
 }

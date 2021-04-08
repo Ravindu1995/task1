@@ -6,23 +6,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 abstract class ProfileDataSource {
-  Stream<List<UserModel>> getUser();
+  Stream<List<UserModel>> getUsers();
 }
 
 class ProfileDataSourceImpl implements ProfileDataSource {
   final FirebaseFirestore firestore;
   final FirebaseAuth firebaseAuth;
 
-  ProfileDataSourceImpl({@required this.firestore , @required this.firebaseAuth})
+  ProfileDataSourceImpl({@required this.firestore, @required this.firebaseAuth})
       : assert(firestore != null, 'this datasource cant be null');
 
-  
-
   @override
-  Stream<List<UserModel>> getUser() {
+  Stream<List<UserModel>> getUsers() {
     try {
-      return firestore.collection('users').doc(firebaseAuth.).get().
-      //return res.data.map((e) => UserModel.fromMap(e.data()));
+      // return firestore
+      //     .collection('users')
+      //     .doc(firebaseAuth.currentUser.uid)
+      //     .snapshots().map((abc) => abc.data.map((bcd) => UserModel.fromMap(bcd.data())).toList());
+     
     } on FailException catch (e) {
       throw FailException(message: e.message);
     } on Exception catch (e) {

@@ -1,4 +1,5 @@
 
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
 import 'package:stacked/stacked.dart';
@@ -20,11 +21,12 @@ class LoginViewModel extends BaseViewModel {
     @required this.loginUseCase,
   }) : assert(loginUseCase != null, 'Login usecase cannot be null');
 
-  
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   Future<void> login() async {
     final res = await loginUseCase(
-        Params(email: 'ravindutharaka2013@gmail.com', password: 'ravindu@123'));
+        Params(email: emailController.text , password: passwordController.text));
     res.fold((l) {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {

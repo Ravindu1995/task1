@@ -3,11 +3,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class UserModel extends User {
-       UserModel({ String uID, String name, String email, String password}): super( uID, name, email, password);
+       UserModel({ String uID, String name, String email, String password}): super(name, email, password);
 
         factory UserModel.fromJson(Map<String,dynamic> json){
           return UserModel(
-            uID: json['uid'],
+            //uID: json['uid'],
             name: json['name'],
             email: json['email'],
             password: json['password']
@@ -15,7 +15,7 @@ class UserModel extends User {
   }
   factory UserModel.fromSnapshot(DocumentSnapshot documentSnapshot){
     return UserModel(
-      uID: documentSnapshot.data()['uid'],
+      //uID: documentSnapshot.data()['uid'],
       name: documentSnapshot.data()['name'],
       email: documentSnapshot.data()['email'],
       password: documentSnapshot.data()['password'],
@@ -23,7 +23,7 @@ class UserModel extends User {
   }
   Map<String,dynamic> toDocument(){
     return {
-      'uid': uID,
+      //'uid': uID,
       "name":name,
       "email":email,
       "password":password,

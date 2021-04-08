@@ -27,6 +27,7 @@ class SignUpDataSourceImpl implements SignUpDataSource {
         await firebaseFirestore.collection('users').doc(res.user.uid).set({
           'email': email,
           'name': name,
+          'password' : password,
         });
         return 'signed up Successfully';
       }

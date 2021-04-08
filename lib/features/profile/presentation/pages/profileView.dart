@@ -25,7 +25,9 @@ class Profile extends StatelessWidget {
                 width: 20.0,
                 height: 30.0,
               ),
-              ProfileFormWidget(),
+              ProfileFormWidget(
+                
+              ),
             ],
           ),
         ),

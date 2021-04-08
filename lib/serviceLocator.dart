@@ -14,6 +14,11 @@ import 'package:TODO/features/login/domain/repositories/loginRepository.dart';
 
 import 'package:TODO/features/login/domain/usecases/login_usecase.dart';
 import 'package:TODO/features/login/presentation/pages/loginViewModel.dart';
+import 'package:TODO/features/profile/data/datasources/profileDataSource.dart';
+import 'package:TODO/features/profile/data/respositories/profileRepositoryImpl.dart';
+import 'package:TODO/features/profile/domain/repositories/profileRepository.dart';
+import 'package:TODO/features/profile/domain/usecases/profileUsecase.dart';
+import 'package:TODO/features/profile/presentation/pages/profileModel.dart';
 import 'package:TODO/features/signUp/data/datasources/signUpDataSource.dart';
 import 'package:TODO/features/signUp/data/repositories/signUpRepositoryImpl.dart';
 import 'package:TODO/features/signUp/domain/repositories/signUpRepository.dart';
@@ -24,13 +29,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
-
 GetIt locator = GetIt.instance;
 
 setupServiceLocator() {
   initLogin();
   initSignUp();
   initShow();
+  initProfile();
 }
 
 void initLogin() {
@@ -69,13 +74,15 @@ void initSignUp() {
 }
 
 initShow() {
-  locator.registerLazySingleton(() => InsertToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(
+      () => InsertToDoUsecase(toDoRepository: locator()));
   locator.registerLazySingleton(() => ToDoUsecase(toDoRepository: locator()));
   locator.registerLazySingleton(() => StreamUse(toDoRepository: locator()));
-  locator.registerLazySingleton(() => UpdateToDoUsecase(toDoRepository: locator()));
-  locator.registerLazySingleton(() => DeleteToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(
+      () => UpdateToDoUsecase(toDoRepository: locator()));
+  locator.registerLazySingleton(
+      () => DeleteToDoUsecase(toDoRepository: locator()));
   //locator.registerLazySingleton(() => SignOutUsecase(signOutRepository: locator()));
-
 
   locator.registerLazySingleton<ToDoRepository>(
       () => ToDoRepositoryImpl(toDoDataSource: locator()));
@@ -83,15 +90,28 @@ initShow() {
   //locator.registerLazySingleton(() => FirebaseFirestore.instance);
   locator.registerLazySingleton<ToDoDataSource>(
       () => ToDoDataSourceImpl(firestore: locator(), uuid: locator()));
-      
+
   locator.registerLazySingleton(() => Uuid());
 
   locator.registerLazySingleton(() => ToDoViewModel(
-      streamUse : locator(),
-      toDoUsecase: locator(),
-      insertToDoUsecase: locator(),
-      updateToDoUsecase: locator(),
-      deleteToDoUsecase: locator(),
-      //signOutUsecase: locator(),
+        streamUse: locator(),
+        toDoUsecase: locator(),
+        insertToDoUsecase: locator(),
+        updateToDoUsecase: locator(),
+        deleteToDoUsecase: locator(),
+        //signOutUsecase: locator(),
       ));
+}
+
+void initProfile() {
+  locator.registerLazySingleton(
+      () => ProfileUsecase(profileRepository: locator()));
+
+  locator.registerLazySingleton<ProfileRepository>(
+      () => ProfileRepositoryImpl(profileDataSource: locator()));
+
+  locator.registerLazySingleton<ProfileDataSource>(() =>
+      ProfileDataSourceImpl(firestore: locator(), firebaseAuth: locator()));
+
+  locator.registerLazySingleton(() => ProfileModel(usecase : locator(),));
 }

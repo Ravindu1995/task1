@@ -2,6 +2,7 @@
 import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 
 import 'package:TODO/features/login/presentation/pages/loginViewModel.dart';
+import 'package:TODO/features/signUp/presentation/pages/signUpView.dart';
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -22,6 +23,7 @@ class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           TextFormField(
+            controller: model.emailController,
             decoration: InputDecoration(
               fillColor: Colors.white,
               border: OutlineInputBorder(
@@ -38,6 +40,7 @@ class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
             height: 30.0,
           ),
           TextFormField(
+            controller: model.passwordController,
             obscureText: true,
             decoration: InputDecoration(
                 fillColor: Colors.white,
@@ -59,7 +62,7 @@ class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
                 borderRadius: BorderRadius.circular(18.0),
                 side: BorderSide(color: Colors.blue)),
             onPressed: () async{
-                await model.login();
+                await  model.login();
                 // Navigator.push(
                 // context,
                 // MaterialPageRoute(builder: (context) => HomePage()),
@@ -87,7 +90,7 @@ class LoginFormWidget extends ViewModelWidget<LoginViewModel> {
               
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => SignPage()),
               );
             },
           ),
