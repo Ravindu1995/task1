@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 class RootUsecase extends StreamUseCase<User, NoParams> {
   final RootRepository repository;
+  //final FirebaseAuth firebaseAuth;
 
   RootUsecase({@required this.repository})
       : assert(RootUsecase != null, 'Repository cannot be null');
@@ -15,9 +16,14 @@ class RootUsecase extends StreamUseCase<User, NoParams> {
     return repository.authStateChange;
   }
 
-  //@override
+  // @override
   // Future<bool> call(NoParams params) async {
   //   // TODO: implement call
   //   return await repository.isUserLoggedIn();
+  // }
+  //
+  // Future<bool> isUserLoggedIn() async {
+  //   var user = await firebaseAuth.currentUser();
+  //   return user != null;
   // }
 }

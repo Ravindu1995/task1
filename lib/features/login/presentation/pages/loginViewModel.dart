@@ -8,10 +8,19 @@ import 'package:TODO/features/login/domain/usecases/login_usecase.dart';
 class LoginViewModel extends BaseViewModel {
   final LoginUseCase loginUseCase;
   //final FirebaseAuth firebaseAuth;
+  String _selectedRole = 'Select a User Role';
+  String get selectedRole => _selectedRole;
+
+  void setSelectedRole(String role) {
+    _selectedRole = role;
+    notifyListeners();
+  }
 
   LoginViewModel({
     @required this.loginUseCase,
   }) : assert(loginUseCase != null, 'Login usecase cannot be null');
+
+  
 
   Future<void> login() async {
     final res = await loginUseCase(

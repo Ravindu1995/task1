@@ -2,6 +2,7 @@ import 'package:TODO/core/error/exceptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:uuid/uuid.dart';
 
 abstract class SignUpDataSource {
   Future<String> signUp(String name, String email, String password);
@@ -10,14 +11,16 @@ abstract class SignUpDataSource {
 class SignUpDataSourceImpl implements SignUpDataSource {
   final FirebaseAuth firebaseAuth;
   final FirebaseFirestore firebaseFirestore;
+  final Uuid uuid;
 
   SignUpDataSourceImpl(
-      {@required this.firebaseAuth, @required this.firebaseFirestore})
+      {@required this.firebaseAuth,  this.uuid,  @required this.firebaseFirestore})
       : assert(firebaseAuth != null, 'Firebase authentication cannot be null');
 
   @override
   Future<String> signUp(String name, String email, String password) async {
     try {
+      //final uid = uuid.v1();
       final res = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       if (res.user != null) {

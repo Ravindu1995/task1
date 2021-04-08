@@ -6,21 +6,23 @@ class UserModel extends User {
   final String email;
   //final String password;
 
-  UserModel( {this.name, this.uID, this.email}) : super(uID,name, email);
+  UserModel( {this.name, this.uID, this.email}) : super(name, email);
 
   Map<String, dynamic> toMap() {
     return {
+      'id': uID,
       'name': name,
       'email': email,
-      //'password': password,
+      
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
+      uID: map['id'],
       name: map['name'],
       email: map['email'],
-      //password : map['password'],
+      
     );
   }
 

@@ -31,7 +31,7 @@ class ToDoViewModel extends StreamViewModel<List<ToDoList>> {
   final TextEditingController docIDController = TextEditingController();
   //this.deleteToDoUsecase,  this.updateToDoUsecase
   ToDoViewModel( {
-    @required this.signOutUsecase,
+     this.signOutUsecase,
     @required this.streamUse,
     @required this.deleteToDoUsecase,
     @required this.updateToDoUsecase,
