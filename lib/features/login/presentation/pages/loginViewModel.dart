@@ -1,4 +1,5 @@
 
+import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
@@ -12,10 +13,10 @@ class LoginViewModel extends BaseViewModel {
   String _selectedRole = 'Select a User Role';
   String get selectedRole => _selectedRole;
 
-  void setSelectedRole(String role) {
-    _selectedRole = role;
-    notifyListeners();
-  }
+  // void setSelectedRole(String role) {
+  //   _selectedRole = role;
+  //   notifyListeners();
+  // }
 
   LoginViewModel({
     @required this.loginUseCase,
@@ -31,6 +32,7 @@ class LoginViewModel extends BaseViewModel {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {
       Get.snackbar('Success', r);
+      Get.to(HomePage());
     });
   }
 }

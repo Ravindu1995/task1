@@ -1,4 +1,3 @@
-import 'package:TODO/features/TODO/presentation/homeView.dart';
 import 'package:TODO/features/profile/presentation/pages/profileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -14,45 +13,56 @@ class ProfileFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileModel>.reactive(
         onModelReady: (model) {},
-        builder: (_, model, widget) {
+        builder: ( _ , model, widget) {
     return Container(
       width: 250,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
         children: [
-          Expanded(
-                    child: Card(
-                  color: Colors.green[100],
-                  child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    //itemExtent: 100.0,
-                    shrinkWrap: true,
-                    itemCount: model.users != null ? model.users.length : 0,
-                    itemBuilder: (context, index) {
-                      return  ListTile(
-                        focusColor: Colors.blue,
-                        title: Text(
-                          model.users[index].name,
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        subtitle: Text(
-                          model.users[index].email,
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        // onTap: () async {
-                        //   showDialog(context: Get.context, child: Popup(toDoViewModel: model,),  );
-                        // },
-                        // onLongPress: () async {
-                        //   await model.deleteTask(index);
-                        // },
-                      );
-                    },
-                    scrollDirection: Axis.vertical,
+
+          Column(
+            children: [
+              Text(model.users.name),
+
+              Text(model.users.email),
+         
+              
+              SizedBox(
+                height: 15,
+              ),
+              
+              TextFormField(
+                controller: model.nameController ,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(40.0),
+                    ),
                   ),
-                )),
+                  labelText: 'Name',
+                  
+                ),
+              ),
+              RaisedButton(
+                          child: Text(
+                            'Save',
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          onPressed: () async {
+                            model.updateUser();
+                          },
+                          
+                          color: Theme.of(context).primaryColor,
+                        ),
+            ],
+          ),
+          
         ],
       ),
     );

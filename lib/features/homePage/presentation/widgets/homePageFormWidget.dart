@@ -32,6 +32,7 @@ class HomePageFormWidget extends StatelessWidget {
                 Column(
                   children: [
                     TextFormField(
+                      //readOnly: true,
                       controller: model.titleController,
                       decoration: InputDecoration(
                         hintText: 'Enter title',
@@ -86,6 +87,7 @@ class HomePageFormWidget extends StatelessWidget {
                           onPressed: () async {
                             model.insertTask();
                           },
+                          
                           color: Theme.of(context).primaryColor,
                         ),
 

@@ -1,3 +1,4 @@
+import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 import 'package:TODO/features/login/presentation/pages/loginView.dart';
 import 'package:TODO/features/root/presentation/pages/rootViewModel.dart';
 import 'package:TODO/serviceLocator.dart';
@@ -15,20 +16,7 @@ class RootPageView extends StatelessWidget {
         if (model.user == null) {
           return LoginPage();
         }
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                CircularProgressIndicator(
-                  strokeWidth: 3,
-                  valueColor: AlwaysStoppedAnimation(Color(0xff19c7c1)),
-                )
-              ],
-            ),
-          ),
-        );
+        return HomePage();
       },
       viewModelBuilder: () => locator<RootViewModel>(),
     );

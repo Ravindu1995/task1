@@ -39,12 +39,7 @@ class ToDoViewModel extends StreamViewModel<List<ToDoList>> {
     @required this.toDoUsecase,
   }) : assert(insertToDoUsecase != null, ' usecase cannot be null');
 
-  @override
-  void dispose() {
-    title1Controller.dispose();
-    task1Controller.dispose();
-    super.dispose();
-  }
+  
 
   Future<void> insertTask() async {
     final res = await insertToDoUsecase(inserttodo.Params(

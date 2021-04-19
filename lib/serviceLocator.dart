@@ -17,8 +17,18 @@ import 'package:TODO/features/login/presentation/pages/loginViewModel.dart';
 import 'package:TODO/features/profile/data/datasources/profileDataSource.dart';
 import 'package:TODO/features/profile/data/respositories/profileRepositoryImpl.dart';
 import 'package:TODO/features/profile/domain/repositories/profileRepository.dart';
+import 'package:TODO/features/profile/domain/usecases/UpdateProUsecase.dart';
 import 'package:TODO/features/profile/domain/usecases/profileUsecase.dart';
 import 'package:TODO/features/profile/presentation/pages/profileModel.dart';
+import 'package:TODO/features/root/data/datasources/rootDataSource.dart';
+import 'package:TODO/features/root/data/repositories/rootRepositoryImpl.dart';
+import 'package:TODO/features/root/domain/usecases/rootUsecase.dart';
+import 'package:TODO/features/root/presentation/pages/rootViewModel.dart';
+import 'package:TODO/features/signOut/data/datasources/signOutDataSource.dart';
+import 'package:TODO/features/signOut/data/repositories/signOutRepositoryImpl.dart';
+import 'package:TODO/features/signOut/domain/repositories/signOutRepository.dart';
+import 'package:TODO/features/signOut/domain/usecases/signOutUsecase.dart';
+import 'package:TODO/features/signOut/presentation/pages/signOutModel.dart';
 import 'package:TODO/features/signUp/data/datasources/signUpDataSource.dart';
 import 'package:TODO/features/signUp/data/repositories/signUpRepositoryImpl.dart';
 import 'package:TODO/features/signUp/domain/repositories/signUpRepository.dart';
@@ -29,13 +39,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:uuid/uuid.dart';
 
+import 'features/root/domain/repositories/rootRepository.dart';
+
 GetIt locator = GetIt.instance;
 
 setupServiceLocator() {
+  initView();
   initLogin();
   initSignUp();
   initShow();
   initProfile();
+  initSignOut();
+}
+
+void initView() {
+  locator.registerLazySingleton(() => RootUsecase(repository: locator()));
+
+  locator.registerLazySingleton<RootRepository>(
+      () => RootRepositoryImpl(rootDataSource: locator()));
+
+  locator.registerLazySingleton<RootDataSource>(
+      () => RootDataSourceImpl(firebaseAuth: locator()));
+
+  locator.registerFactory(() => RootViewModel(rootUsecase: locator()));
 }
 
 void initLogin() {
@@ -54,7 +80,7 @@ void initLogin() {
   locator.registerLazySingleton(() => FirebaseAuth.instance);
 
   ///*- viewmodels
-  locator.registerLazySingleton(() => LoginViewModel(loginUseCase: locator()));
+  locator.registerFactory(() => LoginViewModel(loginUseCase: locator()));
 }
 
 void initSignUp() {
@@ -93,13 +119,12 @@ initShow() {
 
   locator.registerLazySingleton(() => Uuid());
 
-  locator.registerLazySingleton(() => ToDoViewModel(
+  locator.registerFactory(() => ToDoViewModel(
         streamUse: locator(),
         toDoUsecase: locator(),
         insertToDoUsecase: locator(),
         updateToDoUsecase: locator(),
         deleteToDoUsecase: locator(),
-        //signOutUsecase: locator(),
       ));
 }
 
@@ -107,11 +132,34 @@ void initProfile() {
   locator.registerLazySingleton(
       () => ProfileUsecase(profileRepository: locator()));
 
+  locator.registerLazySingleton(
+      () => UpdateProUsecase(repository:  locator()));
+
   locator.registerLazySingleton<ProfileRepository>(
       () => ProfileRepositoryImpl(profileDataSource: locator()));
 
   locator.registerLazySingleton<ProfileDataSource>(() =>
       ProfileDataSourceImpl(firestore: locator(), firebaseAuth: locator()));
 
-  locator.registerLazySingleton(() => ProfileModel(usecase : locator(),));
+  locator.registerFactory(() => ProfileModel(
+        usecase: locator(), proUsecase: locator()
+      ));
+}
+
+void initSignOut() {
+  locator.registerLazySingleton(() => SignOutUsecase(signOutRepository:  locator()));
+
+  ///* repository
+  locator.registerLazySingleton<SignOutRepository>(
+      () => SignOutRepositoryImpl(signOutDataSource:  locator()));
+
+  ///* datasources
+  locator.registerLazySingleton<SignOutDataSource>(
+      () => SignOutDataSourceImpl(firebaseAuth: locator()));
+
+  ///*! core
+  //locator.registerLazySingleton(() => FirebaseAuth.instance);
+
+  ///*- viewmodels
+  locator.registerLazySingleton(() => SignOutModel(usecase:  locator()));
 }

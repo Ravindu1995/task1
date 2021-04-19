@@ -15,7 +15,7 @@ class SignOutDataSourceImpl implements SignOutDataSource {
   @override
   Future<void> signOut() async {
     try {
-      await firebaseAuth.signOut();
+      return await firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {
       throw AuthException(message: e.message);
     } on Exception catch (e) {

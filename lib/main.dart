@@ -1,9 +1,11 @@
 
+import 'package:TODO/features/root/presentation/pages/rootPageView.dart';
 import 'package:TODO/serviceLocator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:TODO/features/login/presentation/pages/loginView.dart';
 import 'package:get/get.dart';
+
+//mport 'features/root/presentation/pages/rootPageView.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +27,12 @@ class MyApp extends StatelessWidget {
       
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
+      home: RootPageView(),
     );
   }
 }
 
-enum todolist { todo, jefferson }
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);

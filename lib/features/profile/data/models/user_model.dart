@@ -1,16 +1,16 @@
 import 'package:TODO/features/profile/domain/entities/users.dart';
 
-class UserModel extends User {
-  final String uID;
+class UserModel extends UserEntity {
+  final String uid;
   final String name;
   final String email;
   //final String password;
 
-  UserModel( {this.name, this.uID, this.email}) : super(name, email);
+  UserModel( {this.name, this.uid, this.email}) : super(email : email , name: name);
 
   Map<String, dynamic> toMap() {
     return {
-      'id': uID,
+      'uid': uid,
       'name': name,
       'email': email,
       
@@ -19,7 +19,7 @@ class UserModel extends User {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      uID: map['id'],
+      uid: map['uid'],
       name: map['name'],
       email: map['email'],
       

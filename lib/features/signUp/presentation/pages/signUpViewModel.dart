@@ -1,3 +1,4 @@
+import 'package:TODO/features/homePage/presentation/pages/homePageview.dart';
 import 'package:TODO/features/signUp/domain/usecases/signUpUsecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,7 @@ class SignUpViewModel extends BaseViewModel {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {
       Get.snackbar('Success', r);
+      Get.to(HomePage());
     });
   }
 }

@@ -52,10 +52,6 @@ class SignUpFormWidget extends StatelessWidget {
                       side: BorderSide(color: Colors.blue)),
                   onPressed: () async{
                    await model.signUp();
-                   Navigator.push(
-                     context,
-                     MaterialPageRoute(builder: (context) => HomePage()),
-                     );
                   },
                   
                   color: Colors.blue,
@@ -76,11 +72,11 @@ class SignUpFormWidget extends StatelessWidget {
                     style: TextStyle(fontSize: 25),
                   ),
                   onPressed: () async {
-                    await model.signUp();
-                    //Navigator.push(
-                    // context,
-                    // MaterialPageRoute(builder: (context) => HomePage()),
-                    // );
+                    //await model.signUp();
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                    );
                   },
                 ),
                 SizedBox(

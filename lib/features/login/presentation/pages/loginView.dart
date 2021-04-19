@@ -7,7 +7,7 @@ import 'package:stacked/stacked.dart';
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.nonReactive(
+    return ViewModelBuilder<LoginViewModel>.reactive(
         builder: (context, model, widget) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
