@@ -32,7 +32,13 @@ class HomePageFormWidget extends StatelessWidget {
                 Column(
                   children: [
                     TextFormField(
-                      //readOnly: true,
+                      autofillHints: [AutofillHints.name],
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please type something';
+                        }
+                        return null;
+                      },
                       controller: model.titleController,
                       decoration: InputDecoration(
                         hintText: 'Enter title',
@@ -87,7 +93,6 @@ class HomePageFormWidget extends StatelessWidget {
                           onPressed: () async {
                             model.insertTask();
                           },
-                          
                           color: Theme.of(context).primaryColor,
                         ),
 
@@ -105,7 +110,6 @@ class HomePageFormWidget extends StatelessWidget {
                         //   },
                         //   color: Theme.of(context).primaryColor,
                         // ),
-                        
                       ],
                     ),
                   ],
@@ -119,7 +123,7 @@ class HomePageFormWidget extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: model.todos != null ? model.todos.length : 0,
                     itemBuilder: (context, index) {
-                      return  ListTile(
+                      return ListTile(
                         focusColor: Colors.blue,
                         title: Text(
                           model.todos[index].title,
@@ -132,7 +136,12 @@ class HomePageFormWidget extends StatelessWidget {
                           style: TextStyle(fontSize: 15),
                         ),
                         onTap: () async {
-                          showDialog(context: Get.context, child: Popup(toDoViewModel: model,),  );
+                          showDialog(
+                            context: Get.context,
+                            child: Popup(
+                              toDoViewModel: model,
+                            ),
+                          );
                         },
                         onLongPress: () async {
                           await model.deleteTask(index);

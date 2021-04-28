@@ -14,7 +14,7 @@ class ProfileModel extends StreamViewModel<UserEntity> {
   ProfileModel({@required this.usecase ,@required this.proUsecase})
       : assert(usecase != null, ' usecase cannot be null');
 
-  final nameController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   UserEntity get users => data;
   @override
@@ -23,7 +23,7 @@ class ProfileModel extends StreamViewModel<UserEntity> {
 
   Future<void> updateUser() async {
     final res = await proUsecase(updateprousecase.Params(
-        name: users.name));
+        name: nameController.text));
     res.fold((l) {
       Get.snackbar('Error', l.failureMessage);
     }, (r) {

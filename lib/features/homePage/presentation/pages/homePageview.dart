@@ -8,10 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
-  
- bool selected = true;
- //var msgController = TextEditingController();
-  
+  bool selected = true;
+  // final _pages = [
+  //   HomePage(),
+  //   Profile(),
+  // ];
+ 
+//int _selectedPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,8 +50,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabTapped, // new
-       currentIndex: _currentIndex,
+        //currentIndex: _selectedPage,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -61,15 +64,11 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      
-      
+
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        
         child: HomePageFormWidget(),
-        
       ),
-
 
       // bottomNavigationBar:
     );
@@ -82,7 +81,7 @@ void choiceAction(String choice) {
     //   context,
     //   MaterialPageRoute(builder: (context) => Profile()),
     // );
-    Get.to(() =>Profile());
+    Get.to(() => Profile());
   } else if (choice == Constants.SignOut) {
     // Navigator.push(
     //   context,
